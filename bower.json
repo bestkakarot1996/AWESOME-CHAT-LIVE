@@ -1,0 +1,17 @@
+{
+  "name": "awesome-chat-live",
+  "description": "chat awesome",
+  "main": "server.js",
+  "authors": [
+    "TrieuViDev"
+  ],
+  "license": "ISC",
+  "homepage": "https://github.com/bestkakarot1996/AWESOME-CHAT-LIVE",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ]
+}
