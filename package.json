@@ -4,7 +4,8 @@
   "description": "project awesome chat live",
   "main": "server.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "babel-node src/server.js"
   },
   "repository": {
     "type": "git",
@@ -17,6 +18,12 @@
   },
   "homepage": "https://github.com/bestkakarot1996/AWESOME-CHAT-LIVE#readme",
   "dependencies": {
-    "express": "^4.17.1"
+    "express": "^4.16.4",
+    "mongoose": "^4.13.9"
+  },
+  "devDependencies": {
+    "@babel/preset-env": "^7.5.5",
+    "babel-cli": "^6.26.0",
+    "babel-preset-env": "^1.7.0"
   }
 }
