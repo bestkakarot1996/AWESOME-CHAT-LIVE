@@ -18,6 +18,8 @@
   },
   "homepage": "https://github.com/bestkakarot1996/AWESOME-CHAT-LIVE#readme",
   "dependencies": {
+    "bluebird": "^3.5.3",
+    "dotenv": "^8.0.0",
     "express": "^4.16.4",
     "mongoose": "^4.13.9"
   },
