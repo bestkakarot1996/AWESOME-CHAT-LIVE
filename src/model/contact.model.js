@@ -1,7 +1,8 @@
+// require mongose
 import mongoose from "mongoose";
-
+// import Schema
 let Schema = mongoose.Schema;
-
+// Tạo Schema
 let ContactSchema = new Schema({
   // _id : tự tạo ra
   userId: String,
@@ -19,4 +20,6 @@ ContactSchema.statics = {
   }
 };
 
+//export + tạo model
 module.exports = mongoose.model("contact", ContactSchema);
+

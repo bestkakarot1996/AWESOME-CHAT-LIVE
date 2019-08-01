@@ -1,17 +1,21 @@
 {
-  "name": "awesome-chat-live",
-  "description": "chat awesome",
-  "main": "server.js",
+  "name": "awesome-live-chat",
+  "homepage": "https://www.facebook.com/KakarotDeveloper",
   "authors": [
-    "TrieuViDev"
+    "TrieuViDev <dangtrieuvi18091996@gmail.com>"
   ],
-  "license": "ISC",
-  "homepage": "https://github.com/bestkakarot1996/AWESOME-CHAT-LIVE",
+  "description": "Manage frontend libraries.",
+  "main": "src/server.js",
+  "license": "",
+  "private": true,
   "ignore": [
     "**/.*",
     "node_modules",
     "bower_components",
     "test",
     "tests"
-  ]
+  ],
+  "dependencies": {
+    "bower_components": "https://github.com/trungquan17/awesome-chat-third-party-libraries.git"
+  }
 }
