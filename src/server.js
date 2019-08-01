@@ -14,8 +14,8 @@ app.get("/testDB", async (req, res) => {
       userId: "Admin",
       contactId: "admin"
     };
-    // vì mặc định đã có promise nên có thể dùng thẳng async await
-    // console.log(contact = await ContactModel.create(item));
+    // vì mặc định đã có promiseawait nên có thể dùng thẳng async await
+    // console.log(contact =  ContactModel.create(item));
     let contact = await ContactModel.create(item); // dùng async await để nó đợi ContactModel tạo bảng ghi xong thì mới gán vào send connect
     res.send(contact)
   } catch (error) {
@@ -23,5 +23,5 @@ app.get("/testDB", async (req, res) => {
   }
 });
 app.listen(process.env.APP_PORT, process.env.APP_HOST, () => {
-  console.log(`hello app chat $(hostname):${process.env.APP_PORT}/`);
+  console.log(`my name app message chat $(hostname):${process.env.APP_PORT}/`);
 });
