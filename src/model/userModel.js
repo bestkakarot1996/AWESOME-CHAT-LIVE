@@ -29,4 +29,14 @@ let UserSchema = new Schema({
   updateAt: { type: Number, default: null },
   deletedAt: { type: Number, default: null }
 });
+// creact table database contact
+UserSchema.statics = {
+  createNew(item) {
+    return this.create(item); // Tạo 1 bản ghi từ let ContactSchema = new Schema và this.create = ContactSchema = new Schema là một thuộc tính trong mongoose
+  },
+  findByEmail(email) 
+  {
+    return this.findOne({"local.email": email}).exec();
+  }
+};
 module.exports = mongoose.model("user", UserSchema);
