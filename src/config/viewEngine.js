@@ -1,8 +1,8 @@
 import express from "express";
 import ExpressEjsExtend from "express-ejs-extend";
-
 /**
- Cấu hình config viewEngine 
+ * 
+ * @param {*} app  from exactly app viewEngine
  */
 let configViewEngine = (app) => {
 app.use(express.static("./src/public"));// file này dung để lưu các file (thư viện) js , ejs,.. về fordel public
