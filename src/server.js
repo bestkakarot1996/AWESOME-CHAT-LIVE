@@ -4,6 +4,8 @@ import connectDB from "./connectBD";
 import configViewEngine from "./config/viewEngine";
 //import initRoutes 
 import initRoutes from "./routes/web";
+// import bodyParser
+import bodyParser from "body-parser";
 // import dotenv from "dotenv";
 require('dotenv').config();
 let app = express();
@@ -12,6 +14,8 @@ let app = express();
 connectDB();
 // configViewEngin 
 configViewEngine(app);
+// enable bodyParser app 
+app.use(bodyParser.urlencoded({extended: true}));
 // initRoutes all router
 initRoutes(app);
 app.listen(process.env.APP_PORT, process.env.APP_HOST, () => {
