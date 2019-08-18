@@ -15,5 +15,25 @@ export const transValidation = {
  export const transSuccsess = { 
    userCreated: (userEmail) => {
       return `Email <b>${userEmail}</b> tạo thành công. Vui lòng kiểm tra email để kích hoạt tài khoản !`
-   }
+   },
+  };
+  
+  export const transMail = { 
+    subject: "Asomechat: Kích hoạt tài khoản",
+    template: (linkVerify) => {
+      return `
+      <h2>Bạn đã đăng ký thành công ứng dụng chat trên Asome chat</h2>
+      <h3>Vui lòng click vào link bên dưới để kích hoạt tài khoản</h3>
+      <h3><a href="${linkVerify}" target="blank"></a>${linkVerify}</h3>
+      <h4>Xin cám ơn!</h4>
+      `
+    },
+    errors_fail_mail: "Có lỗi trong quá trình đăng ký. Vui lòng liên hệ admin 0901974704. Xin cám ơn!"
+  };
+  
+  
+  export const transActiveAccount = {
+    account_actived: "Tài khoản kích hoạt thành công !",
+    token_undefine: "Tài khoản đã được kích hoạt. Vui lòng không kích hoạt lại nữa. Xin cám ơn !"
  };
+
