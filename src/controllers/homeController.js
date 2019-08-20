@@ -5,6 +5,7 @@ let getHomeController = (req, res) => {
   });
 };
 
+
 module.exports = {
   getHomeController: getHomeController
 };

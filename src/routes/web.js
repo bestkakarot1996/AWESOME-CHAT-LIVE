@@ -15,16 +15,19 @@ require('dotenv').config();
  */
 
 let initRoutes = (app) => {
-  router.get("/", home.getHomeController);
-  router.get("/login-register", auth.getLoginRegister);
-  router.post("/register", authValid.register, auth.postRegister);
-  router.get("/verify/:token", auth.verifyAccount);
-  router.post("/login", passport.authenticate("local", {
+  //check logout 
+  router.get("/login-register", auth.checkLogoutUser, auth.getLoginRegister);
+  router.post("/register", auth.checkLogoutUser , authValid.register, auth.postRegister);
+  router.get("/verify/:token", auth.checkLogoutUser , auth.verifyAccount);
+  router.post("/login", auth.checkLogoutUser, passport.authenticate("local", {
     successRedirect: "/",
     failureRedirect: "/login-register",
     successFlash: true,
     failureFlash: true
-  }))
+  }));
+  // check login
+  router.get("/", auth.checkLoginUser,  home.getHomeController);
+  router.get("/logout", auth.checkLoginUser, auth.getLogoutUser);
 
   return app.use("/", router);
 }
