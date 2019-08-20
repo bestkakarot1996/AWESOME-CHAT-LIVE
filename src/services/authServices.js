@@ -44,7 +44,7 @@ let register = (email, gender, password, protocol, host) => {
         reject(transMail.errors_fail_mail);
       });
   });
-}
+};
 
 
 let verifyAcc = (token) => {
@@ -57,7 +57,8 @@ let verifyAcc = (token) => {
     await userModal.verify(token);
     resolve(transActiveAccount.account_actived);
   });
-}
+};
+
 
 module.exports = {
   register: register,

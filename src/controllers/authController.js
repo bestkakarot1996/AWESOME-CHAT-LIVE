@@ -49,8 +49,15 @@ let verifyAccount = async (req, res) => {
     return res.redirect("/login-register"); // when users enter an error , then redirect the page login-register
   }
 };
+
+let postLogin = () => 
+{ 
+
+};
+
 module.exports = {
   getLoginRegister: getLoginRegister,
   postRegister: postRegister,
-  verifyAccount: verifyAccount
+  verifyAccount: verifyAccount,
+  postLogin: postLogin
 };

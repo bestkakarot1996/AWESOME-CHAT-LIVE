@@ -10,6 +10,8 @@ import bodyParser from "body-parser";
 import connectFlash from "connect-flash";
 // import session
 import configSession from "./config/session";
+// import passport
+import passport from "passport";
 // import dotenv from "dotenv";
 require('dotenv').config();
 let app = express();
@@ -24,6 +26,9 @@ configViewEngine(app);
 app.use(bodyParser.urlencoded({extended: true}));
 // enable connectFlash
 app.use(connectFlash());
+// config Passprort
+app.use(passport.initialize());
+app.use(passport.session());
 // initRoutes all router
 initRoutes(app);
 app.listen(process.env.APP_PORT, process.env.APP_HOST, () => {

@@ -9,13 +9,19 @@ export const transValidation = {
  export const transErrors = { 
    account_in_user: "Email đã được sử dụng !",
    account_remove: "Email đã bị gỡ khỏi hệ thống , nếu điều này không đúng. Vui lòng liên hệ admin 0901974704",
-   account_not_active: "Emai này đã được đăng ký nhưng chưa kích hoạt. Vui lòng hãy kích hoạt hoặc liên hệ với admin 0901974704"
+   account_not_active: "Emai này đã được đăng ký nhưng chưa kích hoạt. Vui lòng hãy kích hoạt hoặc liên hệ với admin 0901974704",
+   login_fail : "Đăng nhập không thành công !",
+   login_fail_active: "Tài khoản chưa được kích hoạt. Vui lòng kiểm tra email để kích hoạt !",
+   server_errors: "Có lỗi trong quá trình xử lý. Vui lòng liên hệ 0901974704 để báo cáo lỗi. Xin cám ơn!"
  };
 
  export const transSuccsess = { 
    userCreated: (userEmail) => {
       return `Email <b>${userEmail}</b> tạo thành công. Vui lòng kiểm tra email để kích hoạt tài khoản !`
    },
+   loginSuccsess: (userName) => {
+     return `Xin chào ${userName} bạn đã đăng nhập thành công! Chúc bạn một ngày tốt lành !`
+   }
   };
   
   export const transMail = { 

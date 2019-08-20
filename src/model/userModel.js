@@ -1,9 +1,11 @@
 import mongoose from "mongoose";
+import bcrypt from "bcrypt";
 
 let Schema = mongoose.Schema;
 
 let UserSchema = new Schema({
   userName: String,
+  fullName: String,
   gender: { type: String, default: "male" },
   phone: { type: String, default: null },
   address: { type: String, default: null },
@@ -38,14 +40,17 @@ UserSchema.statics = {
   {
     return this.findOne({"local.email": email}).exec();
   },
+  // remove ID register
   removeByID(id) 
   {
     return this.findByIdAndRemove(id).exec();
   },
+  // get token
   findByToken(token) 
   {
    return this.findOne({"local.verifyToken": token}).exec();
   },
+  // verify update token
   verify(token) 
   {
     return this.findOneAndUpdate(
@@ -53,6 +58,21 @@ UserSchema.statics = {
       {"local.isActive": true},
       {"local.verifyToken": null} 
     ).exec();
+  },
+  // get user by id 
+  findUserById(id) 
+  {
+    return this.findById(id).exec();
   }
 };
+
+// method : check password true or false
+
+UserSchema.methods = {
+  comparePassword(password) 
+  {
+    return bcrypt.compare(password, this.local.password); // return a  promise true or false
+  }
+}
+
 module.exports = mongoose.model("user", UserSchema);
