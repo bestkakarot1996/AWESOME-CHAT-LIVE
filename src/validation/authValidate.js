@@ -13,8 +13,13 @@ let register = [
     .custom((value, { req }) => {
       return value === req.body.password;
     })
-]
+];
+
+let login = [
+
+];
 
 module.exports = {
-  register: register
+  register: register,
+  login: login
 }
