@@ -1,31 +1,31 @@
 import passport from "passport";
-import passportFacebook from "passport-facebook";
+import passportGoogle from "passport-google-oauth";
 import UserModel from "./../../model/userModel";
 import { transErrors, transSuccsess } from "./../../../lang/vi";
 
-let FacebookStrategy = passportFacebook.Strategy;
+let GoogleStrategy = passportGoogle.OAuth2Strategy;
 
-let fbAppId = process.env.FACEBOOK_APP_ID;
-let fbAppSecret = process.env.FACEBOOK_APP_CECRET;
-let fbAppCallback = process.env.FACEBOOK_APP_CALLBACK;
+let ggAppId = process.env.GOOGLE_APP_ID;
+let ggAppSecret = process.env.GOOGLE_APP_CECRET;
+let ggAppCallback = process.env.GOOGLE_APP_CALLBACK;
 
 /**
- * check init user login facebook
+ * check init user login google
  */
 
-let initPassportFacebook = () => {
-  passport.use(new FacebookStrategy({
-    clientID: fbAppId,
-    clientSecret: fbAppSecret,
-    callbackURL: fbAppCallback,
+let initPassportGoogle = () => {
+  passport.use(new GoogleStrategy({
+    clientID: ggAppId,
+    clientSecret: ggAppSecret,
+    callbackURL: ggAppCallback,
     passReqToCallback: true,
-    profileFields: ["email", "gender", "displayName"]
   }, async (req, accessToken, refreshToken, profile, done) => { // transmission 4 params 1 req, 2 email, 3 password, 4 done  
     try {
-      let user = await UserModel.findByFacebookUid(profile.id);
+      let user = await UserModel.findByGoogleUid(profile.id);
       if (user) {
         return done(null, user, req.flash("success", transSuccsess.loginSuccsess(user.userName)));
       }
+      console.log(profile);
       // nếu chưa login lần nào thì tạo user 
       let userNewItem = {
         userName: profile.displayName,
@@ -33,7 +33,7 @@ let initPassportFacebook = () => {
         local: {
           isActive: true,
         },
-        facebook: {
+        google: {
           uid: profile.id,
           token: accessToken,
           email: profile.emails[0].value
@@ -62,4 +62,4 @@ let initPassportFacebook = () => {
   });
 };
 
-module.exports = initPassportFacebook;
+module.exports = initPassportGoogle;
