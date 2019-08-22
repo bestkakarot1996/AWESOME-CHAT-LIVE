@@ -3,9 +3,11 @@ import { home, auth } from "../controllers/indexControllers";
 import { authValid } from "../validation/indexValidate";
 import passport from "passport";
 import initPassportLocal from "./../controllers/passportController/local";
+import initPassportFacebook from "./../controllers/passportController/facebook";
 
 // init passport Local
 initPassportLocal();
+initPassportFacebook();
 
 let router = express.Router();
 require('dotenv').config();
@@ -25,6 +27,12 @@ let initRoutes = (app) => {
     successFlash: true,
     failureFlash: true
   }));
+
+  router.get("/auth/facebook", passport.authenticate("facebook", {scope: ["email"]} ));
+  router.get("/auth/facebook/callback", passport.authenticate("facebook", {
+    successRedirect: "/",
+    failureRedirect: "/login-register",
+  }))
   // check login
   router.get("/", auth.checkLoginUser,  home.getHomeController);
   router.get("/logout", auth.checkLoginUser, auth.getLogoutUser);

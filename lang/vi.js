@@ -22,7 +22,7 @@ export const transValidation = {
    loginSuccsess: (userName) => {
      return `Xin chào ${userName} bạn đã đăng nhập thành công! Chúc bạn một ngày tốt lành !`
    },
-   logoutSuccsess: "Đăng xuất tài khoản thành công !"
+   logoutSuccsess: "Đăng xuất tài khoản thành công  !"
   };
   
   export const transMail = { 

@@ -5,7 +5,6 @@ let Schema = mongoose.Schema;
 
 let UserSchema = new Schema({
   userName: String,
-  fullName: String,
   gender: { type: String, default: "male" },
   phone: { type: String, default: null },
   address: { type: String, default: null },
@@ -36,41 +35,39 @@ UserSchema.statics = {
   createNew(item) {
     return this.create(item); // Tạo 1 bản ghi từ let ContactSchema = new Schema và this.create = ContactSchema = new Schema là một thuộc tính trong mongoose
   },
-  findByEmail(email) 
-  {
-    return this.findOne({"local.email": email}).exec();
+  findByEmail(email) {
+    return this.findOne({ "local.email": email }).exec();
   },
   // remove ID register
-  removeByID(id) 
-  {
+  removeByID(id) {
     return this.findByIdAndRemove(id).exec();
   },
   // get token
-  findByToken(token) 
-  {
-   return this.findOne({"local.verifyToken": token}).exec();
+  findByToken(token) {
+    return this.findOne({ "local.verifyToken": token }).exec();
   },
   // verify update token
-  verify(token) 
-  {
+  verify(token) {
     return this.findOneAndUpdate(
-      {"local.verifyToken": token},
-      {"local.isActive": true},
-      {"local.verifyToken": null} 
+      { "local.verifyToken": token },
+      { "local.isActive": true },
+      { "local.verifyToken": null }
     ).exec();
   },
   // get user by id 
-  findUserById(id) 
-  {
+  findUserById(id) {
     return this.findById(id).exec();
+  },
+  // get user facebook
+  findByFacebookUid(uid) {
+    return this.findOne({ "facebook.uid": uid }).exec();
   }
 };
 
 // method : check password true or false
 
 UserSchema.methods = {
-  comparePassword(password) 
-  {
+  comparePassword(password) {
     return bcrypt.compare(password, this.local.password); // return a  promise true or false
   }
 }
