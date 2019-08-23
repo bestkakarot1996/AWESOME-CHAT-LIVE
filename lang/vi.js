@@ -12,7 +12,9 @@ export const transValidation = {
    account_not_active: "Emai này đã được đăng ký nhưng chưa kích hoạt. Vui lòng hãy kích hoạt hoặc liên hệ với admin 0901974704",
    login_fail : "Đăng nhập không thành công !",
    login_fail_active: "Tài khoản chưa được kích hoạt. Vui lòng kiểm tra email để kích hoạt !",
-   server_errors: "Có lỗi trong quá trình xử lý. Vui lòng liên hệ 0901974704 để báo cáo lỗi. Xin cám ơn!"
+   server_errors: "Có lỗi trong quá trình xử lý. Vui lòng liên hệ 0901974704 để báo cáo lỗi. Xin cám ơn!",
+   avatarType_errors: "Đuôi ảnh không hợp lệ ! Vui lòng sử dụng đuôi ảnh có dạng jpg, png, jpeg",
+   avatarLimits_errors : "Kích thước ảnh quá mức cho phép. Vui lòng sử dụng ảnh 1M"
  };
 
  export const transSuccsess = { 
@@ -22,7 +24,8 @@ export const transValidation = {
    loginSuccsess: (userName) => {
      return `Xin chào ${userName} bạn đã đăng nhập thành công! Chúc bạn một ngày tốt lành !`
    },
-   logoutSuccsess: "Đăng xuất tài khoản thành công  !"
+   logoutSuccsess: "Đăng xuất tài khoản thành công  !",
+   avatarUpdate: "Cập nhật ảnh đại diện thành công"
   };
   
   export const transMail = { 
@@ -43,4 +46,5 @@ export const transValidation = {
     account_actived: "Tài khoản kích hoạt thành công !",
     token_undefine: "Tài khoản đã được kích hoạt. Vui lòng không kích hoạt lại nữa. Xin cám ơn !"
  };
+
 

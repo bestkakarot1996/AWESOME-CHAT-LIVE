@@ -6,7 +6,7 @@ function updateUserInfo() {
     let fileData = $('#input-change-avatar').prop("files")[0];
     let tailImage = ["image/png", "image/jpg", "image/jpeg"];
     let limit = 1048576; // byte = 1M;
-    // if file fileData do not exits: neus file fileData không tồn tại
+    // // if file fileData do not exits: neus file fileData không tồn tại
     if ($.inArray(fileData.type, tailImage) === -1) {
       alertify.notify("Đuôi ảnh không hợp lệ ! Vui lòng sử dụng đuôi ảnh có dạng jpg, png, jpeg", "error", 5);
       $('#input-change-avatar').val(null); // refresh value : f5 lại dữ liệu nếu có lỗi 
@@ -96,10 +96,25 @@ $(document).ready(function () {
       processData: false,
       data: userAvatar,
       success: function (result) {
-        //
+        console.log(result);
+        // display show success 
+        $(".user-model-alert-success").find("span").text(result.message); // message bên Usercontroller
+        $(".user-model-alert-success").css("display", "block");
+        // update avatar lên navbar
+        $("#navbar-avatar").attr("src", result.imageSrc);
+
+        // update thành công thì sửa lại avatar cũ
+        originAvatarSrc = result.imageSrc;
+        $("#input-btn-cancel-update-user").click(); // tự động click reset 
       },
       error: function (error) {
-        //
+        // display show error 
+        $(".user-model-alert-error").find("span").text(error.responseText); // ghi đè lỗi
+        console.log(error.responseText);
+        $(".user-model-alert-error").css("display", "block");
+
+        // reset all 
+        $("#input-btn-cancel-update-user").click(); // tự động click reset 
       }
 
     })
@@ -110,6 +125,7 @@ $(document).ready(function () {
   $("#input-btn-cancel-update-user").bind("click", function () {
     userAvatar = null;
     userInfo = null;
+    $("#input-change-avatar").val(null);
     $("#user-model-avatar").attr("src", originAvatarSrc); // khi hủy thì phải lấy lại đc giá trị src ban đầu
   });
 });
