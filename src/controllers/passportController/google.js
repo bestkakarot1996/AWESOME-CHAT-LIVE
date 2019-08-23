@@ -23,12 +23,12 @@ let initPassportGoogle = () => {
     try {
       let user = await UserModel.findByGoogleUid(profile.id);
       if (user) {
-        return done(null, user, req.flash("success", transSuccsess.loginSuccsess(user.userName)));
+        return done(null, user, req.flash("success", transSuccsess.loginSuccsess(user.username)));
       }
       console.log(profile);
       // nếu chưa login lần nào thì tạo user 
       let userNewItem = {
-        userName: profile.displayName,
+        username: profile.displayName,
         gender: profile.gender,
         local: {
           isActive: true,
@@ -41,7 +41,7 @@ let initPassportGoogle = () => {
       };
       // create user in userNewItem
       let userNew = await UserModel.createNew(userNewItem);
-      return done(null, userNew, req.flash("success", transSuccsess.loginSuccsess(userNew.userName)));
+      return done(null, userNew, req.flash("success", transSuccsess.loginSuccsess(userNew.username)));
     } catch (error) {
       console.log(error);
       return done(null, false, req.flash("errors", transErrors.server_errors));

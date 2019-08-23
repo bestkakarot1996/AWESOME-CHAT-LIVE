@@ -60,7 +60,7 @@
                                             <% } %>
 
                                             <% if (user.facebook.email) { %>
-                                            <div class="form-control" disabled><%= user.facebook.email %> </div>
+                                            <div class="form-control" disabled> <%= user.facebook.email %> </div>
                                             <% } %>
 
                                             <% if (user.google.email) { %>
@@ -71,7 +71,7 @@
                                             <label class="col-md-3 control-label">Username:</label>
                                             <div class="col-md-8">
                                                 <input id="input-change-username" class="form-control" type="text" name="username"
-                                                    value="<%= user.userName %>">
+                                                    value="<%= user.username %>">
                                             </div>
                                         </div>
                                         <div class="form-group">
@@ -96,8 +96,8 @@
                                         </div>
                                         <div class="form-group">
                                             <label class="col-lg-3 control-label">Số điện thoại:</label>
-                                            <div id="input-change-phone" class="col-lg-8">
-                                                <input class="form-control" type="text" name="phone" value="<%= user.phone %>">
+                                            <div class="col-lg-8">
+                                                <input id="input-change-phone" class="form-control" type="text" name="phone" value="<%= user.phone %>">
                                             </div>
                                         </div>
                                         <div class="form-group">
