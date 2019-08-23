@@ -19,7 +19,7 @@ let register = (email, gender, password, protocol, host) => {
     }
     let salt = bcrypt.genSaltSync(saltRounds);
     let userItem = {
-      userName: email.split("@")[0],
+      username: email.split("@")[0],
       gender: gender,
       local: {
         email: email,
@@ -32,7 +32,7 @@ let register = (email, gender, password, protocol, host) => {
     let linkVerify = `
       ${protocol}://${host}/verify/${user.local.verifyToken}
     `;
-    sendMail(email, transMail.subject, transMail.template(linkVerify))
+    sendMail(email, transMail.subject, transMail.template(linkVerify)) // vì trả về promise
       .then(succsess => {
         resolve(transSuccsess.userCreated(user.local.email));
         console.log(succsess);
