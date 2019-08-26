@@ -85,7 +85,7 @@ function updateUserInfo() {
       delete userInfo.username;
       return false;
     }
-    userInfo.username = usernames;
+    userInfo.username = username;
   });
 
   // ghi dữ liệu mới GENDER
