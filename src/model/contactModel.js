@@ -17,6 +17,17 @@ let ContactSchema = new Schema({
 ContactSchema.statics = {
   createNew(item) {
     return this.create(item); // Tạo 1 bản ghi từ let ContactSchema = new Schema và this.create = ContactSchema = new Schema là một thuộc tính trong mongoose
+  },
+  /**
+   * @param {string} userID tìm tất cả các userID có trong bản ghi
+   */
+  findAllByUser(userID) {
+    return this.find({
+      $or: [
+        {"userId": userID },
+        {"contactId": userID }
+      ]
+    }).exec();
   }
 };
 

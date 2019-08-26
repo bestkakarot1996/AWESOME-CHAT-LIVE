@@ -1,6 +1,6 @@
 import express from "express";
-import { home, auth, user } from "../controllers/indexControllers";
-import { authValid, userValid } from "../validation/indexValidate";
+import { home, auth, user, contact } from "../controllers/indexControllers";
+import { authValid, userValid, contactValid } from "../validation/indexValidate";
 import passport from "passport";
 import initPassportLocal from "./../controllers/passportController/local";
 import initPassportFacebook from "./../controllers/passportController/facebook";
@@ -41,14 +41,15 @@ let initRoutes = (app) => {
   router.get("/auth/google/callback", auth.checkLogoutUser, passport.authenticate("google", {
     successRedirect: "/",
     failureRedirect: "/login-register",
-  })); 
+  }));
   // check login
   router.get("/", auth.checkLoginUser, home.getHomeController);
   router.get("/logout", auth.checkLoginUser, auth.getLogoutUser);
 
   router.put("/user/update-avatar", auth.checkLoginUser, user.updateAvatar);
   router.put("/user/update-info", auth.checkLoginUser, userValid.updateInfoUserValidate, user.updateInfo);
-  router.put("/user/update-password" , auth.checkLoginUser, userValid.updatePasswordValidate , user.updatePassword );
+  router.put("/user/update-password", auth.checkLoginUser, userValid.updatePasswordValidate, user.updatePassword);
+  router.get("/contact/find-users/:keyword", auth.checkLoginUser, contactValid.findUserContactValidate, contact.findUserContact);
 
   return app.use("/", router);
 }
