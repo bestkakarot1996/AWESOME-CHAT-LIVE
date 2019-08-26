@@ -41,13 +41,14 @@ let initRoutes = (app) => {
   router.get("/auth/google/callback", auth.checkLogoutUser, passport.authenticate("google", {
     successRedirect: "/",
     failureRedirect: "/login-register",
-  }));
+  })); 
   // check login
   router.get("/", auth.checkLoginUser, home.getHomeController);
   router.get("/logout", auth.checkLoginUser, auth.getLogoutUser);
 
   router.put("/user/update-avatar", auth.checkLoginUser, user.updateAvatar);
   router.put("/user/update-info", auth.checkLoginUser, userValid.updateInfoUserValidate, user.updateInfo);
+  router.put("/user/update-password" , auth.checkLoginUser, userValid.updatePasswordValidate , user.updatePassword );
 
   return app.use("/", router);
 }

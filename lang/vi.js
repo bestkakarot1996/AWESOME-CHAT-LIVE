@@ -19,7 +19,10 @@ export const transValidation = {
    login_fail_active: "Tài khoản chưa được kích hoạt. Vui lòng kiểm tra email để kích hoạt !",
    server_errors: "Có lỗi trong quá trình xử lý. Vui lòng liên hệ 0901974704 để báo cáo lỗi. Xin cám ơn!",
    avatarType_errors: "Đuôi ảnh không hợp lệ ! Vui lòng sử dụng đuôi ảnh có dạng jpg, png, jpeg",
-   avatarLimits_errors : "Kích thước ảnh quá mức cho phép. Vui lòng sử dụng ảnh 1M"
+   avatarLimits_errors : "Kích thước ảnh quá mức cho phép. Vui lòng sử dụng ảnh 1M",
+   trans_user_underfine: "Tài khoản không tồn tại ",
+   user_current_password_flased: "Mật khẩu hiện tại không chính xác",
+   trans_userCurrent_equal_checkCurrentPassword: "Mật khẩu mới phải khác với mật khẩu cũ. Vui lòng nhập lại"
  };
 
  export const transSuccsess = { 
@@ -30,7 +33,8 @@ export const transValidation = {
      return `Xin chào ${userName} bạn đã đăng nhập thành công! Chúc bạn một ngày tốt lành !`
    },
    logoutSuccsess: "Đăng xuất tài khoản thành công  !",
-   user_info_updated : "Cập nhật thông tin người dùng thành công"
+   user_info_updated : "Cập nhật thông tin người dùng thành công",
+   user_update_password : "Cập nhật mật khẩu thành công!"
   };
   
   export const transMail = { 
