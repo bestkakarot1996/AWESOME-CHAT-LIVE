@@ -327,9 +327,10 @@ $(document).ready(function () {
     userAvatar = null;
     userInfo = {};
     $("#input-change-avatar").val(null);
-    $("#user-model-avatar").attr("src", originAvatarSrc); // khi hủy thì phải lấy lại đc giá trị src ban đầu
-
-    $('#input-change-username').val(originUserInfo.username); // khi ấn nút hủy bỏ thì lấy giá trị gốc trả về input 
+    // khi hủy thì phải lấy lại đc giá trị src ban đầu
+    $("#user-model-avatar").attr("src", originAvatarSrc);
+    // khi ấn nút hủy bỏ thì lấy giá trị gốc trả về input 
+    $('#input-change-username').val(originUserInfo.username);
     (originUserInfo.gender === "male") ? $('#input-change-gender-male').click() : $('#input-change-gender-female').click();
     $('#input-change-address').val(originUserInfo.address);
     $('#input-change-phone').val(originUserInfo.phone);

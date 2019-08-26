@@ -7,7 +7,8 @@ export const transValidation = {
   update_username: "UserName giới hạn trong khoản 3 - 7 ký tự và không được chứa các ký tự đặc biệt" ,
   update_gender : "Oops! Dữ liệu giới tính có vấn đề. Bạn là hackker chăng ?" , 
   update_address: "Địa chỉ giới hạn 3 - 70 ký tự" ,
-  update_phone: "Số điện thoại bắt đầu bằng số 0 và chứa 3 - 12 ký tự"
+  update_phone: "Số điện thoại bắt đầu bằng số 0 và chứa 3 - 12 ký tự",
+  keyword_find_user: "Lỗi tìm kiếm! Chỉ cho phép nhập ký tự chữ, chữ, số và ký tự khoảng trống"
  };
 
 
