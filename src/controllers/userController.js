@@ -2,7 +2,7 @@ import multer from "multer";
 import { app } from "./../config/app";
 import { transErrors, transSuccsess } from "./../../lang/vi";
 import uuidv4 from "uuid/v4";
-import { user } from "./../services/indexServices";
+import { user, auth } from "./../services/indexServices";
 import fsExtra from "fs-extra";
 import { validationResult } from "express-validator/check";
 // nơi upload image
@@ -22,12 +22,13 @@ let storageAvatar = multer.diskStorage({
   }
 });
 
-// TH 
+// UPLOAD FILE 
 let avatarUploadFile = multer({
   storage: storageAvatar,
   limits: { fileSize: app.avatar_limit_file }
 }).single("avatar");
 
+// UPLOAD AVATAR
 let updateAvatar = (req, res) => {
   avatarUploadFile(req, res, async (error) => {
     if (error) {
@@ -57,7 +58,7 @@ let updateAvatar = (req, res) => {
   });
 }; // truyền đến fromData
 
-
+// UPLOAD INFOUSER
 let updateInfo = async (req, res) => {
   // show Error when users enter wrong 
   let errorArray = [];
@@ -85,9 +86,36 @@ let updateInfo = async (req, res) => {
   }
 }
 
+let updatePassword = async (req, res) => {
+    // show Error when users enter wrong 
+    let errorArray = [];
+    let validationErrors = validationResult(req);
+    if (!validationErrors.isEmpty()) {
+      let errors = Object.values(validationErrors.mapped());
+      errors.forEach(item => {
+        errorArray.push(item.msg);
+      });
+      return res.status(500).send(errorArray); // when users enter an error , then redirect the page login-register
+    }
+
+  try {
+    let updateUserItem = req.body;
+    await user.updatePassword(req.user._id, updateUserItem);
+
+    let result = {
+      message: transSuccsess.user_update_password
+    };
+    return res.status(200).send(result);
+  } catch (error) {
+    return res.status(500).send(error);
+  }
+
+}
+
 
 
 module.exports = {
   updateAvatar: updateAvatar,
-  updateInfo: updateInfo
+  updateInfo: updateInfo,
+  updatePassword: updatePassword
 };
