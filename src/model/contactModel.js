@@ -24,8 +24,47 @@ ContactSchema.statics = {
   findAllByUser(userID) {
     return this.find({
       $or: [
-        {"userId": userID },
-        {"contactId": userID }
+        { "userId": userID },
+        { "contactId": userID }
+      ]
+    }).exec();
+  },
+  /**
+   * Kiểm tra tồn tại sủa 2 ID
+   * @param {string} userId 
+   * @param {string} contactId 
+   */
+  checkExists(userId, contactId) {
+    return this.findOne({
+      // Kiểm tra chéo: Ví dụ userId là A và A gửi cho B (chính là contactId) thì sẽ rơi vào trường hợp 1 
+      // TH2 : tránh trường hợp A đã gửi kết bạn cho B nhưng B vẫn gửi lời mời kết bạn cho A được (TH này vô lý)
+      // TH2 đúng  thì A kp B thì B sẽ nhận được lời mời kết bạn là accept 
+      $or: [
+        {
+          $and: [
+            { "userId": userId },
+            { "contactId": contactId }
+          ]
+        },
+        {
+          $and: [
+            { "userId": contactId },
+            { "contactId": userId }
+          ]
+        }
+      ]
+    }).exec();
+  },
+  /**
+   * Remove request
+   * @param {string} userId 
+   * @param {string} contactId 
+   */
+  removeContact(userId, contactId) {
+    return this.remove({
+      $and: [
+        { "userId": userId },
+        { "contactId": contactId }
       ]
     }).exec();
   }

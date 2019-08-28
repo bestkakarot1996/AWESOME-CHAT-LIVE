@@ -82,16 +82,16 @@ UserSchema.statics = {
    * @param {string: keyword search } keyword 
    */
   findAllForAddContact(deprecatedUserIds, keyword) {
-   return this.find({
+    return this.find({
       $and: [
         { "_id": { $nin: deprecatedUserIds } }, // lọc ra những user không nằm trong mảng deprecatedUserIds
         { "local.isActive": true },
         {
           $or: [
-            { "username": { "$regex": keyword } }, // tìm username có keyword gần giống nhất trong bảng ghi User 
-            { "local.email": { "$regex": keyword } },
-            { "facebook.email": { "$regex": keyword } },
-            { "google.email": { "$regex": keyword } }
+            { "username": { "$regex": new RegExp(keyword, "i") } }, // tìm username có keyword gần giống nhất trong bảng ghi User 
+            { "local.email": { "$regex": new RegExp(keyword, "i") } },
+            { "facebook.email": { "$regex": new RegExp(keyword, "i") } },
+            { "google.email": { "$regex": new RegExp(keyword, "i") } }
           ]
         }
       ]

@@ -49,7 +49,11 @@ let initRoutes = (app) => {
   router.put("/user/update-avatar", auth.checkLoginUser, user.updateAvatar);
   router.put("/user/update-info", auth.checkLoginUser, userValid.updateInfoUserValidate, user.updateInfo);
   router.put("/user/update-password", auth.checkLoginUser, userValid.updatePasswordValidate, user.updatePassword);
+
+
   router.get("/contact/find-users/:keyword", auth.checkLoginUser, contactValid.findUserContactValidate, contact.findUserContact);
+  router.post("/contact/add-new", auth.checkLoginUser, contact.addNewContact );
+  router.delete("/contact/remove-request-contact", auth.checkLoginUser, contact.removeReqContact)
 
   return app.use("/", router);
 }
