@@ -15,6 +15,10 @@ function callFindUsers(element) {
     // get ajax up req server
     $.get(`/contact/find-users/${keyword}`, function (data) {
       $("#find-user ul").html(data);
+      // gọi hàm này ở addContact. Vì khi ajax trả về các li bạn bè thì mới addContact.js
+      addContact(); 
+      //
+      removeReqContact();
     });
   }
 };
