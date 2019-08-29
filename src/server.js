@@ -9,37 +9,58 @@ import bodyParser from "body-parser";
 // import connectFlash
 import connectFlash from "connect-flash";
 // import session
-import configSession from "./config/session";
+import session from "./config/session";
 // import passport
 require('dotenv').config();
 import passport from "passport";
 // import pem from "pem";
-// import https from "https";
+import http from "http";
+import socketio from "socket.io";
+import initSockets from "./sockets/indexSocket";
 
- 
- let app = express();
- 
- // run function connectDB MongoDB
- connectDB();
- // run configSession after run file connectDB
- configSession(app);
- // configViewEngin 
- configViewEngine(app);
- // enable bodyParser app 
- app.use(bodyParser.urlencoded({ extended: true }));
- // enable connectFlash
- app.use(connectFlash());
- // config Passprort
- app.use(passport.initialize());
- app.use(passport.session());
- // initRoutes all router
- initRoutes(app);
- app.listen(process.env.APP_PORT, process.env.APP_HOST, () => {
-   console.log(`my name app message chat $(hostname):${process.env.APP_PORT}/`);
- });
+import cookieParser from "cookie-parser";
+import configSocketIo from "./config/socketio";
+
+let app = express();
+
+// init server with socket io and express app 
+let server = http.createServer(app);
+let io = socketio(server);
+
+// run function connectDB MongoDB
+connectDB();
+// run configSession after run file connectDB
+session.config(app);
+// configViewEngin 
+configViewEngine(app);
+// enable bodyParser app 
+app.use(bodyParser.urlencoded({ extended: true }));
+// enable connectFlash
+app.use(connectFlash());
+
+// use app cookieParser
+
+app.use(cookieParser());
+
+// config Passprort
+app.use(passport.initialize());
+app.use(passport.session());
+// initRoutes all router
+initRoutes(app);
+
+//init get data to session for socketIo for configSocketIo
+
+configSocketIo(io, cookieParser, session.sessionStore);
 
 
- /** -----------------------------------------PEM SSL ---------------------------------------------- */
+// initSockets all socket 
+initSockets(io);
+server.listen(process.env.APP_PORT, process.env.APP_HOST, () => {
+  console.log(`my name app message chat $(hostname):${process.env.APP_PORT}/`);
+});
+
+
+/** -----------------------------------------PEM SSL ---------------------------------------------- */
 
 
 
@@ -54,7 +75,7 @@ import passport from "passport";
 //     throw err
 //   }
 //   let app = express();
- 
+
 //   // run function connectDB MongoDB
 //   connectDB();
 //   // run configSession after run file connectDB
@@ -74,6 +95,6 @@ import passport from "passport";
 //   https.createServer({ key: keys.serviceKey, cert: keys.certificate }, app).listen(process.env.APP_PORT, process.env.APP_HOST, () => {
 //     console.log(`my name app message chat $(hostname):${process.env.APP_PORT}/`);
 //   });
-// })
+// });
 
 

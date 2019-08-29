@@ -1,5 +1,8 @@
 import session from "express-session";
 import connectMongo from "connect-mongo";
+
+// import passport
+require('dotenv').config();
 /**
  * 
  * @param {*} app  from exactly app config
@@ -14,11 +17,11 @@ let sessionStore = new MongoStore({
   //autoRemove: "native" // remove session when cookie expired 1day
 });
 // save data users enter in session 
-let configSession = (app) => 
+let config = (app) => 
 {
 app.use(session({
-  key: "express.sid",
-  secret: "mySecret",
+  key: process.env.SESSION_KEY,
+  secret: process.env.SESSION_SECRET,
   store : sessionStore,
   resave: true,
   saveUninitialized: false,
@@ -28,4 +31,7 @@ app.use(session({
 }))
 };
 
-module.exports = configSession;
+module.exports = {
+  config: config,
+  sessionStore: sessionStore
+};
