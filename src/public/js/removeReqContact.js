@@ -1,15 +1,3 @@
-function quantityRemoveReqContactNotify(className) {
-  let currentValue = +$(`.${className}`).find("em").text();
-  currentValue -= 1;
-  if (currentValue === 0) {
-    $(`.${className}`).html(null);
-  }
-  else {
-    $(`.${className}`).html(`(<em>${currentValue}</em>)`);
-  }
-};
-
-
 function removeReqContact() {
   $(".user-remove-request-contact").bind("click", function () {
     let targetId = $(this).data("uid"); // lấy uid tại tata-uid html
@@ -24,8 +12,21 @@ function removeReqContact() {
           $("#find-user").find(`div.user-remove-request-contact[data-uid=${targetId}]`).hide();
           $("#find-user").find(`div.user-add-new-contact[data-uid=${targetId}]`).css("display", "inline-block");
           quantityRemoveReqContactNotify("count-request-contact-sent");
+          // init socket io
+          socket.emit("remove-request-contact", { contactId: targetId });
         }
       }
     })
   });
 };
+
+
+// Server socket gửi về user  
+socket.on("response-remove-request-contact", function (user) {
+  $(".noti_content").find(`span[data-uid = ${user.id}]`).remove();
+  // xóa ở model tab yêu cầu kết bạn
+  quantityRemoveReqContactNotify("count-request-contact-received");
+  // xóa ở thông báo
+  quantityRemoveReqNotifycation("noti_contact_counter");
+  quantityRemoveReqNotifycation("noti_counter");
+});
