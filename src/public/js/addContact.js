@@ -1,15 +1,3 @@
-
-function quantityAddContactNotify(className) {
-  let currentValue = +$(`.${className}`).find("em").text();
-  currentValue += 1;
-  if (currentValue === 0) {
-    $(`.${className}`).html(null);
-  }
-  else {
-    $(`.${className}`).html(`(<em>${currentValue}</em>)`);
-  }
-};
-
 // function addContact được gọi sau khi ajax trả về cả thẻ li bạn bè . Vì thế nên không thể gọi hàm chạm ở file này
 function addContact() {
   $(".user-add-new-contact").bind("click", function () {
@@ -22,8 +10,24 @@ function addContact() {
         $("#find-user").find(`div.user-remove-request-contact[data-uid=${targetId}]`).css("display", "inline-block");
         quantityAddContactNotify("count-request-contact-sent");
         // init socket io
-        socket.emit("add-new-contact", {contactId: targetId});
+        socket.emit("add-new-contact", { contactId: targetId });
       }
     })
   });
 };
+
+
+// Server socket gửi về user  
+socket.on("response-add-new-contact", function (user) {
+  let notify = `
+  <span data-uid="${user.id}">
+  <img class="avatar-small" src="./images/users/${user.avatar}" alt=""> 
+  <strong>${user.username}</strong> đã gửi cho bạn một lời mời kết bạn!
+</span><br><br><br>
+`;
+  $(".noti_content").prepend(notify);
+  quantityAddContactNotify("count-request-contact-received");
+
+  quantityAddNotifycation("noti_contact_counter");
+  quantityAddNotifycation("noti_counter");
+});

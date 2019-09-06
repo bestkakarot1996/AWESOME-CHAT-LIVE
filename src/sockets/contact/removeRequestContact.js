@@ -1,25 +1,23 @@
 import { pushSocketIdToArray, emitNotifiToArray, removeSocketIdToArray } from "./../../helpers/socketHelper";
 /**
-/**
  * from socket.io init 
  * @param {*} io  // Có sẵn trong thư viện socket
  */
-let addNewContact = (io) => {
+let removeRequestContact = (io) => {
   let clients = {};
   io.on("connection", (socket) => {
     pushSocketIdToArray(clients, socket.request.user._id, socket.id);
 
+    socket.on("remove-request-contact", function (data) {
+      console.log(data);
+      console.log(socket.request.user);
 
-    socket.on("add-new-contact", function (data) {
-      // console.log(data);
-      // console.log(socket.request.user);
       let currentUser = {
-        id: socket.request.user._id,
-        username: socket.request.user.username,
-        avatar: socket.request.user.avatar
+        id: socket.request.user._id
       };
+      // gửi thông báo (khi user đang online )
       if (clients[data.contactId]) {
-        emitNotifiToArray(clients, data.contactId, io, "response-add-new-contact", currentUser);
+        emitNotifiToArray(clients, data.contactId, io, "response-remove-request-contact", currentUser);
       }
     });
     // xóa socketId dư thừa
@@ -27,8 +25,7 @@ let addNewContact = (io) => {
       clients = removeSocketIdToArray(clients, socket.request.user._id, socket);
     });
     console.log(clients);
-
   });
 };
 
-module.exports = addNewContact;
+module.exports = removeRequestContact;
