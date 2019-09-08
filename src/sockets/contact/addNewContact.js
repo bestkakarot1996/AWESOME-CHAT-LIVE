@@ -9,7 +9,6 @@ let addNewContact = (io) => {
   io.on("connection", (socket) => {
     pushSocketIdToArray(clients, socket.request.user._id, socket.id);
 
-
     socket.on("add-new-contact", function (data) {
       // console.log(data);
       // console.log(socket.request.user);
