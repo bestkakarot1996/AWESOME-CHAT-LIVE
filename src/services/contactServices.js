@@ -1,5 +1,6 @@
 import ContactModel from "./../model/contactModel";
 import UserModel from "./../model/userModel";
+import NotificationModel from "./../model/notificationModel";
 import _ from "lodash";
 
 let findUserContactServices = (currentUserId, keyword) => {
@@ -33,20 +34,32 @@ let addNewContactServices = (currentUserId, contactId) => {
     };
 
     let newContact = await ContactModel.createNew(newContactItem);
+    // create notification
+    let notificationItem = {
+      senderId: currentUserId,
+      receiverId: contactId,
+      type: NotificationModel.types.ADD_CONTACT,
+    };
+    // Tạo Id khi người dùng gửi yêu cầu kết bạn cho ai đó , thì gán thống báo về database 
+    await NotificationModel.model.createNew(notificationItem);
+
     resolve(newContact);
   });
 };
 
-let removeReqContactServices = (userId, contactId) => {
+let removeReqContactServices = (currentUserId, contactId) => {
   return new Promise(async (resolve, reject) => {
-    let removeReq = await ContactModel.removeContact(userId, contactId);
+    let removeReq = await ContactModel.removeContact(currentUserId, contactId);
     if (removeReq.result.n === 0) {
       return reject(false);
     }
+    // remove notification
+    await NotificationModel.model.removeRequestContactNotification(currentUserId, contactId, NotificationModel.types.ADD_CONTACT);
+
     resolve(true);
 
   });
-}
+};
 
 module.exports = {
   findUserContactServices: findUserContactServices,
