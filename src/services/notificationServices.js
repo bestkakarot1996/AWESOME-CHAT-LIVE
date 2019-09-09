@@ -11,21 +11,38 @@ let getNotifications = (currentUserId, limit = 10) => {
     try {
       let notifications = await NotificationModel.model.getByUserIdAndLimit(currentUserId, limit);
       // sử dụng map để lấy được tất cả các thông báo trong bảng ghi 
-      let getNotifiContent = notifications.map(async(notification) => {
+      let getNotifiContent = notifications.map(async (notification) => {
         // query vào dữ liệu và lấy senderId ra
         let sender = await UserModel.findUserById(notification.senderId);
 
-        return NotificationModel.contents.getContent(notification.type, notification.isRead, sender._id, sender.username, sender.avatar );
+        return NotificationModel.contents.getContent(notification.type, notification.isRead, sender._id, sender.username, sender.avatar);
       });
       // console.log(await Promise.all(getNotifiContent));
       resolve(await Promise.all(getNotifiContent))
-        
+
     } catch (error) {
       reject(error);
     }
   });
 };
 
+
+let countNotifiUnread = (currentUserId) => {
+  return new Promise(async (resolve, reject) => {
+    try {
+      let notificationsUnread = await NotificationModel.model.countNotifiUnread(currentUserId);
+      resolve(notificationsUnread);
+      
+    }
+
+
+    catch (error) {
+      reject(error);
+    }
+  });
+};
+
 module.exports = {
-  getNotifications: getNotifications
+  getNotifications: getNotifications,
+  countNotifiUnread: countNotifiUnread
 };

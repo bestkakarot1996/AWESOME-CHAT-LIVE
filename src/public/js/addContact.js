@@ -20,12 +20,13 @@ function addContact() {
 // Server socket gửi về user  
 socket.on("response-add-new-contact", function (user) {
   let notify = `
-  <span class="noti-readed-false" data-uid="${user.id}">
+  <div class="noti-readed-false" data-uid="${user.id}">
   <img class="avatar-small" src="./images/users/${user.avatar}" alt=""> 
   <strong>${user.username}</strong> đã gửi cho bạn một lời mời kết bạn!
-</span><br><br><br>
+</div><br><br><br>
 `;
-  $(".noti_content").prepend(notify);
+  $(".noti_content").prepend(notify); //popup notif
+  $(".list-notifications").prepend(`<li>${notify}</li>`) //modal notif
   quantityAddContactNotify("count-request-contact-received");
 
   quantityAddNotifycation("noti_contact_counter");

@@ -25,7 +25,7 @@ NotificationSchema.statics = {
       ]
     }).exec();
   },
-  /**
+  /** 
    * 
    * @param {String} userId 
    * @param {Number} Limit 
@@ -36,6 +36,19 @@ NotificationSchema.statics = {
       "receiverId": userId
     }).sort({ "createdAt": -1 }).limit(Limit).exec();
     // sort sắp xếp chiều thông báo 
+  },
+  /**
+   * 
+   * @param {*} userId 
+   * đếm số thông báo chưa đọc
+   */
+  countNotifiUnread(userId) {
+    return this.count({
+      $and: [
+        { "receiverId": userId },
+        { "isRead": false }
+      ]
+    }).exec();
   }
 
 };
@@ -49,18 +62,18 @@ const NOTIFICATION_CONTENT = {
     if (notificationType === NOTIFICATION_TYPES.ADD_CONTACT) {
       if (!isRead) {
         return `
-        <span class="noti-readed-false" data-uid="${userId}">
+        <div class="noti-readed-false" data-uid="${userId}">
         <img class="avatar-small" src="./images/users/${userAvatar}" alt=""> 
         <strong>${username}</strong> đã gửi cho bạn một lời mời kết bạn!
-      </span><br><br><br>
+      </div>
       `;
       }
 
       return `
-        <span data-uid="${userId}">
+        <div data-uid="${userId}">
         <img class="avatar-small" src="./images/users/${userAvatar}" alt=""> 
         <strong>${username}</strong> đã gửi cho bạn một lời mời kết bạn!
-      </span><br><br><br>
+      </div>
       `;
     }
 
