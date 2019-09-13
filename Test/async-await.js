@@ -9,22 +9,6 @@ let sum = (a,b) => {
   });
 }
 
-// (async () => {
-//   try {
-//     let tong01 =  await sum(7, 10);
-//     let tong02 = await sum(tong01, 10);
-//     let tong03 = await sum (tong02, 10);
-//     console.log(tong03);
-//     console.log(tong02);
-//     console.log(tong01);
-//   }
-//   catch (error) {
-//     console.log(error);
-//   }
-// })();
-
-// hoac co the thuc thi 1 function bằng cách sau 
-
 let getTong = async () => {
   try {
     let tong01 =  await sum(7, 10);
