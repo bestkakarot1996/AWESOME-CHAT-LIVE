@@ -17,8 +17,10 @@
 </head>
 
 <body onload="spinLoaded()">
-    <!--Icon loader-->
-    <div id="loader"></div>
+    <!--CSS Main loading-->
+    <div class="master-loading"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div>
+
+
     <%- include("alertMain/alert"); %>
     <!-- Navbar -->
     <%- include("navbar/navbar"); %>
@@ -47,17 +49,14 @@
     <script src="./js/updateUser.js"></script>
 
     <script src="./js/quantityNotifyContact.js"></script>
-    <!--  -->
-
     <script src="./js/quatityNotifycation.js"></script>
-    <!--  -->
 
     <script src="./js/addContact.js"></script>
-
-    <!--  -->
     <script src="./js/removeReqContact.js"></script>
-    <!--  -->
     <script src="./js/findUsersContact.js"></script>
+
+    <script src="./js/readMoreNotifications.js"></script>
+    <script src="./js/markNotifiAsRead.js"></script>
 
     <%- include("contacts/contactModal"); %>
 

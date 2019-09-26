@@ -7,4 +7,4 @@ import notificationServices from "./notificationServices";
 export const auth = authServices;
 export const user = userServices;
 export const contact = contactServices;
-export const notificationsService = notificationServices
+export const notification = notificationServices

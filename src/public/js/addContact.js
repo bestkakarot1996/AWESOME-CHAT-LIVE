@@ -23,12 +23,12 @@ socket.on("response-add-new-contact", function (user) {
   <div class="noti-readed-false" data-uid="${user.id}">
   <img class="avatar-small" src="./images/users/${user.avatar}" alt=""> 
   <strong>${user.username}</strong> đã gửi cho bạn một lời mời kết bạn!
-</div><br><br><br>
+</div>
 `;
   $(".noti_content").prepend(notify); //popup notif
-  $(".list-notifications").prepend(`<li>${notify}</li>`) //modal notif
-  quantityAddContactNotify("count-request-contact-received");
+  $("ul.list-notifications").prepend(`<li>${notify}</li>`) //modal notif
 
+  quantityAddContactNotify("count-request-contact-received");
   quantityAddNotifycation("noti_contact_counter");
   quantityAddNotifycation("noti_counter");
 });

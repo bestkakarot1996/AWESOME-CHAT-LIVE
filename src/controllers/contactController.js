@@ -38,8 +38,6 @@ let addNewContact = async (req, res) => {
 
     // viet service
     let newContact = await contact.addNewContactServices(currentUserId, contactId);
-    console.log(newContact);
-    console.log(!!newContact);
     return res.status(200).send({success: !!newContact});
 
   } catch (error) {
