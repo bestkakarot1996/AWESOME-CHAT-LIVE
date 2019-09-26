@@ -12,7 +12,7 @@ let getNotifications = (currentUserId) => {
   return new Promise(async (resolve, reject) => {
     try {
       let notifications = await NotificationModel.model.getByUserIdAndLimit(currentUserId, LIMIT_NUMBER_TAKEN);
-      
+
       // sử dụng map để lấy được tất cả các thông báo trong bảng ghi 
       let getNotifiContents = notifications.map(async (notification) => {
         // query vào dữ liệu và lấy senderId ra
@@ -31,11 +31,11 @@ let getNotifications = (currentUserId) => {
 let readMore = (currentUserId, skipNumberNotification) => {
   return new Promise(async (resolve, reject) => {
     try {
-      let newNotifications = await NotificationModel.model.getReadMore(currentUserId, skipNumberNotification,  LIMIT_NUMBER_TAKEN);
-      
-    
-       // sử dụng map để lấy được tất cả các thông báo trong bảng ghi 
-       let getNotifiContents = newNotifications.map(async (notification) => {
+      let newNotifications = await NotificationModel.model.getReadMore(currentUserId, skipNumberNotification, LIMIT_NUMBER_TAKEN);
+
+
+      // sử dụng map để lấy được tất cả các thông báo trong bảng ghi 
+      let getNotifiContents = newNotifications.map(async (notification) => {
         // query vào dữ liệu và lấy senderId ra
         let sender = await UserModel.findUserById(notification.senderId);
 
@@ -43,10 +43,28 @@ let readMore = (currentUserId, skipNumberNotification) => {
       });
       // console.log(await Promise.all(getNotifiContent));
       resolve(await Promise.all(getNotifiContents))
-      
+
 
     } catch (error) {
       reject(error);
+    }
+  });
+};
+
+/**
+ * Mark all as read
+ * @param {string} currentUserId 
+ * @param {array} targetUsers 
+ */
+let markAllAsRead = (currentUserId, targetUsers) => {
+  return new Promise(async (resolve, reject) => {
+    try {
+      await NotificationModel.model.markAllAsRead(currentUserId, targetUsers);
+      resolve(true);
+    } catch (error) {
+      console.log(`Error when mark notification as read: ${error}`);
+
+      reject(false);
     }
   });
 };
@@ -75,5 +93,6 @@ let countNotifiUnread = (currentUserId) => {
 module.exports = {
   getNotifications: getNotifications,
   countNotifiUnread: countNotifiUnread,
-  readMore: readMore
+  readMore: readMore,
+  markAllAsRead: markAllAsRead
 };

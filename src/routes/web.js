@@ -56,7 +56,7 @@ let initRoutes = (app) => {
   router.delete("/contact/remove-request-contact", auth.checkLoginUser, contact.removeReqContact);
 
   router.get("/notification/read-more", auth.checkLoginUser, notification.readMore);
-  // router.put("/notification/mark-all-as-read", auth.checkLoginUser, contact.markAllAsRead);
+  router.put("/notification/mark-all-as-read", auth.checkLoginUser, notification.markAllAsRead);
 
   return app.use("/", router);
 }

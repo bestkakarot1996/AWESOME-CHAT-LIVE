@@ -51,6 +51,20 @@ NotificationSchema.statics = {
   },
   /**
    * 
+   * @param {string} userId 
+   * @param {Array} targetUsers 
+   */
+  markAllAsRead(userId, targetUsers) {
+    return this.updateMany({
+      $and: [
+        { "receiverId": userId },
+        { "senderId": { $in: targetUsers } }
+      ]
+    }, {isRead: true}).exec();  // update nhiều dùng updateMany
+  },
+
+  /**
+   * 
    * @param {*} userId 
    * đếm số thông báo chưa đọc
    */
@@ -62,7 +76,7 @@ NotificationSchema.statics = {
       ]
     }).exec();
   },
-  
+
 
 };
 

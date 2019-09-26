@@ -28,6 +28,6 @@ socket.on("response-remove-request-contact", function (user) {
   // remove tab addfriend
   quantityRemoveReqContactNotify("count-request-contact-received");
   // xóa ở thông báo
-  quantityRemoveReqNotifycation("noti_contact_counter");
-  quantityRemoveReqNotifycation("noti_counter");
+  quantityRemoveReqNotifycation("noti_contact_counter", 1);
+  quantityRemoveReqNotifycation("noti_counter", 1);
 });
