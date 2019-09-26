@@ -20,12 +20,12 @@ function removeReqContact() {
   });
 };
 
-
 // Server socket gửi về user  
 socket.on("response-remove-request-contact", function (user) {
-  $(".noti_content").find(`div[data-uid = ${user.id}]`).remove(); // xóa ở popup notif
+  // delete popup notification
+  $(".noti_content").find(`div[data-uid = ${user.id}]`).remove(); 
   $("ul.list-notifications").find(`li>div[data-uid = ${user.id}]`).parent().remove(); // xóa ở modal notifi
-  // xóa ở model tab yêu cầu kết bạn
+  // remove tab addfriend
   quantityRemoveReqContactNotify("count-request-contact-received");
   // xóa ở thông báo
   quantityRemoveReqNotifycation("noti_contact_counter");

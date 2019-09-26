@@ -42,7 +42,6 @@ let addNewContactServices = (currentUserId, contactId) => {
     };
     // Tạo Id khi người dùng gửi yêu cầu kết bạn cho ai đó , thì gán thống báo về database 
     await NotificationModel.model.createNew(notificationItem);
-
     resolve(newContact);
   });
 };

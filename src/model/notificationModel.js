@@ -31,10 +31,22 @@ NotificationSchema.statics = {
    * @param {Number} Limit 
    * giới hạn thông báo đổ về view
    */
-  getByUserIdAndLimit(userId, Limit) {
+  getByUserIdAndLimit(userId, limit) {
     return this.find({
       "receiverId": userId
-    }).sort({ "createdAt": -1 }).limit(Limit).exec();
+    }).sort({ "createdAt": -1 }).limit(limit).exec();
+    // sort sắp xếp chiều thông báo 
+  },
+  /**
+   * 
+   * @param {string} userId 
+   * @param {number} skip 
+   * @param {number} limit 
+   */
+  getReadMore(userId, skip, limit) {
+    return this.find({
+      "receiverId": userId
+    }).sort({ "createdAt": -1 }).skip(skip).limit(limit).exec();
     // sort sắp xếp chiều thông báo 
   },
   /**
@@ -49,7 +61,8 @@ NotificationSchema.statics = {
         { "isRead": false }
       ]
     }).exec();
-  }
+  },
+  
 
 };
 
@@ -76,8 +89,6 @@ const NOTIFICATION_CONTENT = {
       </div>
       `;
     }
-
-
     return "No watching type notification"
   }
 };
