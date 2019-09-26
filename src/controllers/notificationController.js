@@ -11,9 +11,21 @@ let readMore = async (req, res) => {
 };
 
 
+let markAllAsRead = async (req, res) => {
+  try {
+    let mark = await notification.markAllAsRead(req.user._id, req.body.targetUsers);
+    console.log(mark);
+    return res.status(200).send(mark);
+  } catch (error) {
+    return res.status(500).send(error);
+  }
+};
+
+
 
 module.exports = {
-  readMore: readMore
+  readMore: readMore,
+  markAllAsRead: markAllAsRead
 };
 
 
