@@ -33,7 +33,13 @@
                 <li>
                     <a href="#contactsModal" data-toggle="modal" title="Quản lý liên lạc" id="show-modal-contacts">
                         <i class="fa fa-user-plus"></i>
-                        <div class="display-none noti_contact_counter"></div>
+                        <% if(countAllContactSent + countAllContactReceived) { %>
+                            <div class="noti_contact_counter">
+                                <%= countAllContactSent + countAllContactReceived %>
+                            </div>
+                            <% } else { %>
+                                <div class="display-none noti_contact_counter"></div>
+                            <% }%>
                     </a>
                 </li>
                 <li>

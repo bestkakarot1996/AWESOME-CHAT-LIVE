@@ -67,7 +67,92 @@ ContactSchema.statics = {
         { "contactId": contactId }
       ]
     }).exec();
+  },
+  /**
+   * 
+   * @param {string} contactId 
+   *  @param {number} limit 
+   */
+  getContactBook(userId, limit) {
+    return this.find({
+      $and: [
+        {$or: [
+          {"userId": userId},
+          {"contactId": userId},
+          { "status": true }
+        ]},
+      ]
+    }).sort({ "createdAt": -1 }).limit(limit).exec();
+  },
+  /**
+   * 
+   * @param {string} contactId 
+   *  @param {number} limit 
+   */
+  getContactSent(userId, limit) {
+    return this.find({
+      $and: [
+        { "userId": userId },
+        { "status": false }
+      ]
+    }).sort({ "createdAt": -1 }).limit(limit).exec();
+  },
+  /**
+   * 
+   * @param {string} contactId 
+   *  @param {number} limit 
+   */
+  contactReceived(userId, limit) {
+    return this.find({
+      $and: [
+        { "contactId": userId }, // người khác gửi kết bạn cho mình 
+        { "status": false }
+      ]
+    }).sort({ "createdAt": -1 }).limit(limit).exec();
+  },
+
+  /**
+   * 
+   * @param {string} contactId 
+   */
+  countAllContactBook(userId) {
+    return this.count({
+      $and: [
+        {$or: [
+          {"userId": userId},
+          {"contactId": userId},
+          { "status": true }
+        ]},
+      ]
+    }).exec();
+  },
+  /**
+   * 
+   * @param {string} contactId 
+   */
+  countAllContactSent(userId) {
+    return this.count({
+      $and: [
+        { "userId": userId },
+        { "status": false }
+      ]
+    }).exec();
+  },
+  /**
+   * 
+   * @param {string} contactId 
+   */
+  countAllContactReceived(userId) {
+    return this.count({
+      $and: [
+        { "contactId": userId }, // người khác gửi kết bạn cho mình 
+        { "status": false }
+      ]
+    }).exec();
   }
+  
+
+  
 };
 
 //export + tạo model

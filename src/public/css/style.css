@@ -1289,95 +1289,90 @@ label:focus,
   padding-bottom: 20px;
 }
 
-.read-more-notifi{
+.read-more-notifi, .read-more-contacts, .read-more-contact-sent, .read-more-contact-recevied{
   text-align: center;
 }
 
 
 .read-more-loading {
+  color: official;
   display: none;
   position: relative;
   width: 64px;
   height: 64px;
 }
 .read-more-loading div {
-  animation: read-more-loading 1.2s cubic-bezier(0.5, 0, 0.5, 1) infinite;
   transform-origin: 32px 32px;
+  animation: read-more-loading 1.2s linear infinite;
 }
 .read-more-loading div:after {
   content: " ";
   display: block;
   position: absolute;
-  width: 6px;
-  height: 6px;
-  border-radius: 50%;
-  background: #27ae60;
-  margin: -3px 0 0 -3px;
+  top: 3px;
+  left: 29px;
+  width: 5px;
+  height: 14px;
+  border-radius: 20%;
+  background: #1abc9c;
 }
 .read-more-loading div:nth-child(1) {
-  animation-delay: -0.036s;
-}
-.read-more-loading div:nth-child(1):after {
-  top: 50px;
-  left: 50px;
+  transform: rotate(0deg);
+  animation-delay: -1.1s;
 }
 .read-more-loading div:nth-child(2) {
-  animation-delay: -0.072s;
-}
-.read-more-loading div:nth-child(2):after {
-  top: 54px;
-  left: 45px;
+  transform: rotate(30deg);
+  animation-delay: -1s;
 }
 .read-more-loading div:nth-child(3) {
-  animation-delay: -0.108s;
-}
-.read-more-loading div:nth-child(3):after {
-  top: 57px;
-  left: 39px;
+  transform: rotate(60deg);
+  animation-delay: -0.9s;
 }
 .read-more-loading div:nth-child(4) {
-  animation-delay: -0.144s;
-}
-.read-more-loading div:nth-child(4):after {
-  top: 58px;
-  left: 32px;
+  transform: rotate(90deg);
+  animation-delay: -0.8s;
 }
 .read-more-loading div:nth-child(5) {
-  animation-delay: -0.18s;
-}
-.read-more-loading div:nth-child(5):after {
-  top: 57px;
-  left: 25px;
+  transform: rotate(120deg);
+  animation-delay: -0.7s;
 }
 .read-more-loading div:nth-child(6) {
-  animation-delay: -0.216s;
-}
-.read-more-loading div:nth-child(6):after {
-  top: 54px;
-  left: 19px;
+  transform: rotate(150deg);
+  animation-delay: -0.6s;
 }
 .read-more-loading div:nth-child(7) {
-  animation-delay: -0.252s;
-}
-.read-more-loading div:nth-child(7):after {
-  top: 50px;
-  left: 14px;
+  transform: rotate(180deg);
+  animation-delay: -0.5s;
 }
 .read-more-loading div:nth-child(8) {
-  animation-delay: -0.288s;
+  transform: rotate(210deg);
+  animation-delay: -0.4s;
 }
-.read-more-loading div:nth-child(8):after {
-  top: 45px;
-  left: 10px;
+.read-more-loading div:nth-child(9) {
+  transform: rotate(240deg);
+  animation-delay: -0.3s;
+}
+.read-more-loading div:nth-child(10) {
+  transform: rotate(270deg);
+  animation-delay: -0.2s;
+}
+.read-more-loading div:nth-child(11) {
+  transform: rotate(300deg);
+  animation-delay: -0.1s;
+}
+.read-more-loading div:nth-child(12) {
+  transform: rotate(330deg);
+  animation-delay: 0s;
 }
 @keyframes read-more-loading {
   0% {
-    transform: rotate(0deg);
+    opacity: 1;
   }
   100% {
-    transform: rotate(360deg);
+    opacity: 0;
   }
 }
+
 
 
 /* CSS Main Loading */
@@ -1389,83 +1384,76 @@ label:focus,
   z-index: 2;
   margin: -75px 0 0 -75px;
 }
+
 .master-loading div {
-  animation: master-loading 1.2s cubic-bezier(0.5, 0, 0.5, 1) infinite;
   transform-origin: 32px 32px;
+  animation: master-loading 1.2s linear infinite;
 }
 .master-loading div:after {
   content: " ";
   display: block;
   position: absolute;
-  width: 6px;
-  height: 6px;
-  border-radius: 50%;
-  background: #27ae60;
-  margin: -3px 0 0 -3px;
+  top: 3px;
+  left: 29px;
+  width: 5px;
+  height: 14px;
+  border-radius: 20%;
+  background: #1abc9c;
 }
 .master-loading div:nth-child(1) {
-  animation-delay: -0.036s;
-}
-.master-loading div:nth-child(1):after {
-  top: 50px;
-  left: 50px;
+  transform: rotate(0deg);
+  animation-delay: -1.1s;
 }
 .master-loading div:nth-child(2) {
-  animation-delay: -0.072s;
-}
-.master-loading div:nth-child(2):after {
-  top: 54px;
-  left: 45px;
+  transform: rotate(30deg);
+  animation-delay: -1s;
 }
 .master-loading div:nth-child(3) {
-  animation-delay: -0.108s;
-}
-.master-loading div:nth-child(3):after {
-  top: 57px;
-  left: 39px;
+  transform: rotate(60deg);
+  animation-delay: -0.9s;
 }
 .master-loading div:nth-child(4) {
-  animation-delay: -0.144s;
-}
-.master-loading div:nth-child(4):after {
-  top: 58px;
-  left: 32px;
+  transform: rotate(90deg);
+  animation-delay: -0.8s;
 }
 .master-loading div:nth-child(5) {
-  animation-delay: -0.18s;
-}
-.master-loading div:nth-child(5):after {
-  top: 57px;
-  left: 25px;
+  transform: rotate(120deg);
+  animation-delay: -0.7s;
 }
 .master-loading div:nth-child(6) {
-  animation-delay: -0.216s;
-}
-.master-loading div:nth-child(6):after {
-  top: 54px;
-  left: 19px;
+  transform: rotate(150deg);
+  animation-delay: -0.6s;
 }
 .master-loading div:nth-child(7) {
-  animation-delay: -0.252s;
-}
-.master-loading div:nth-child(7):after {
-  top: 50px;
-  left: 14px;
+  transform: rotate(180deg);
+  animation-delay: -0.5s;
 }
 .master-loading div:nth-child(8) {
-  animation-delay: -0.288s;
+  transform: rotate(210deg);
+  animation-delay: -0.4s;
 }
-.master-loading div:nth-child(8):after {
-  top: 45px;
-  left: 10px;
+.master-loading div:nth-child(9) {
+  transform: rotate(240deg);
+  animation-delay: -0.3s;
+}
+.master-loading div:nth-child(10) {
+  transform: rotate(270deg);
+  animation-delay: -0.2s;
+}
+.master-loading div:nth-child(11) {
+  transform: rotate(300deg);
+  animation-delay: -0.1s;
+}
+.master-loading div:nth-child(12) {
+  transform: rotate(330deg);
+  animation-delay: 0s;
 }
 @keyframes master-loading {
   0% {
-    transform: rotate(0deg);
+    opacity: 1;
   }
   100% {
-    transform: rotate(360deg);
+    opacity: 0;
   }
 }
-
 

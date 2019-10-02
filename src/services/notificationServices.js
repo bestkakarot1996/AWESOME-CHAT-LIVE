@@ -17,11 +17,9 @@ let getNotifications = (currentUserId) => {
       let getNotifiContents = notifications.map(async (notification) => {
         // query vào dữ liệu và lấy senderId ra
         let sender = await UserModel.findUserById(notification.senderId);
-
-        return NotificationModel.contents.getContent(notification.type, notification.isRead, sender._id, sender.username, sender.avatar);
+        return NotificationModel.contents.getContent(notification.type, notification.isRead, sender._id ,sender.username, sender.avatar);
       });
-      // console.log(await Promise.all(getNotifiContent));
-      resolve(await Promise.all(getNotifiContents))
+      resolve(await Promise.all(getNotifiContents));
     } catch (error) {
       reject(error);
     }
@@ -43,8 +41,6 @@ let readMore = (currentUserId, skipNumberNotification) => {
       });
       // console.log(await Promise.all(getNotifiContent));
       resolve(await Promise.all(getNotifiContents))
-
-
     } catch (error) {
       reject(error);
     }
@@ -63,7 +59,6 @@ let markAllAsRead = (currentUserId, targetUsers) => {
       resolve(true);
     } catch (error) {
       console.log(`Error when mark notification as read: ${error}`);
-
       reject(false);
     }
   });

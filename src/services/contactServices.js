@@ -3,6 +3,8 @@ import UserModel from "./../model/userModel";
 import NotificationModel from "./../model/notificationModel";
 import _ from "lodash";
 
+const LIMIT_NUMBER_TAKEN = 10;
+
 let findUserContactServices = (currentUserId, keyword) => {
   return new Promise(async (resolve, reject) => {
     let deprecatedUserIds = [currentUserId];
@@ -60,9 +62,105 @@ let removeReqContactServices = (currentUserId, contactId) => {
   });
 };
 
+
+let getContactsBook = (currentUserId) => {
+  return new Promise(async (resolve, reject) => {
+    try {
+      let contacts = await ContactModel.getContactBook(currentUserId, LIMIT_NUMBER_TAKEN);
+
+      // sử dụng map để lấy được tất cả các thông báo trong bảng ghi 
+      let users = contacts.map(async (contact) => {
+        if (contact.contactId == currentUserId) {
+          return await UserModel.findUserById(contact.userId); // handel logic code
+        } else {
+          return await UserModel.findUserById(contact.contactId);
+        }
+
+      });
+      resolve(await Promise.all(users));
+    } catch (error) {
+      reject(error);
+    }
+  });
+};
+
+let getContactSent = (currentUserId) => {
+  return new Promise(async (resolve, reject) => {
+    try {
+      let contacts = await ContactModel.getContactSent(currentUserId, LIMIT_NUMBER_TAKEN);
+      // sử dụng map để lấy được tất cả các thông báo trong bảng ghi 
+      let users = contacts.map(async (contact) => {
+        return await UserModel.findUserById(contact.contactId);
+      });
+      resolve(await Promise.all(users));
+    } catch (error) {
+      reject(error)
+    }
+  });
+};
+
+
+let getContactReceived = (currentUserId) => {
+  return new Promise(async (resolve, reject) => {
+    try {
+      let contacts = await ContactModel.contactReceived(currentUserId, LIMIT_NUMBER_TAKEN);
+      // sử dụng map để lấy được tất cả các thông báo trong bảng ghi 
+      console.log(contacts, "contacts received");
+
+      let users = contacts.map(async (contact) => {
+        return await UserModel.findUserById(contact.userId);
+      });
+      resolve(await Promise.all(users));
+    } catch (error) {
+      reject(error)
+    }
+  });
+};
+
+
+let countAllContactBook = (currentUserId) => {
+  return new Promise(async (resolve, reject) => {
+    try {
+      let count =  await ContactModel.countAllContactBook(currentUserId);
+      resolve(count);
+    } catch (error) {
+      reject(error)
+    }
+  });
+};
+
+let countAllContactSent = (currentUserId) => {
+  return new Promise(async (resolve, reject) => {
+    try {
+      let count = await ContactModel.countAllContactSent(currentUserId);
+      resolve(count);
+    } catch (error) {
+      reject(error)
+    }
+  });
+};
+
+
+let countAllContactReceived = (currentUserId) => {
+  return new Promise(async (resolve, reject) => {
+    try {
+      let count = await ContactModel.countAllContactReceived(currentUserId);
+      resolve(count);
+    } catch (error) {
+      reject(error)
+    }
+  });
+};
+
 module.exports = {
   findUserContactServices: findUserContactServices,
   addNewContactServices: addNewContactServices,
-  removeReqContactServices: removeReqContactServices
+  removeReqContactServices: removeReqContactServices,
+  getContactsBook: getContactsBook,
+  getContactSent: getContactSent,
+  getContactReceived: getContactReceived,
+  countAllContactBook: countAllContactBook,
+  countAllContactSent: countAllContactSent,
+  countAllContactReceived: countAllContactReceived
 };
 
