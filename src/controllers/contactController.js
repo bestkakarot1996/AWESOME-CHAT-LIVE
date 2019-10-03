@@ -38,7 +38,7 @@ let addNewContact = async (req, res) => {
 
     // viet service
     let newContact = await contact.addNewContactServices(currentUserId, contactId);
-    return res.status(200).send({success: !!newContact});
+    return res.status(200).send({ success: !!newContact });
 
   } catch (error) {
     return res.status(500).send(error);
@@ -53,10 +53,10 @@ let removeReqContact = async (req, res) => {
     let contactId = req.body.uid;
 
     // viet service
-    let removeContact  = await contact.removeReqContactServices(currentUserId, contactId);
+    let removeContact = await contact.removeReqContactServices(currentUserId, contactId);
     console.log(removeContact);
     console.log(!!removeContact);
-    return res.status(200).send({success: !!removeContact});
+    return res.status(200).send({ success: !!removeContact });
 
   } catch (error) {
     return res.status(500).send(error);
@@ -64,9 +64,48 @@ let removeReqContact = async (req, res) => {
   }
 }
 
+let readMoreContacts = async (req, res) => {
+  try {
+    let skipNumberContact = +(req.query.skipNumber);
+
+    let newContactUser = await contact.readMoreContacts(req.user._id, skipNumberContact);
+
+    return res.status(200).send(newContactUser);
+  } catch (error) {
+    return res.status(500).send(error);
+  }
+}
+
+
+let readMoreContactSent = async (req, res) => {
+  try {
+    let skipNumberContactSent = +(req.query.skipNumber);
+
+    let newContactUser = await contact.readMoreContactSent(req.user._id, skipNumberContactSent);
+
+    return res.status(200).send(newContactUser);
+  } catch (error) {
+    return res.status(500).send(error);
+  }
+};
+
+let readMoreContactRecevied = async (req, res) => {
+  try {
+    let skipNumberContactReceived = +(req.query.skipNumber);
+    let newContactReceived = await contact.readMoreContactReceived(req.user._id, skipNumberContactReceived);
+
+    return res.status(200).send(newContactReceived);
+  } catch (error) {
+    return res.status(500).send(error);
+  }
+};
+
 module.exports = {
   findUserContact: findUserContact,
   addNewContact: addNewContact,
-  removeReqContact: removeReqContact
+  removeReqContact: removeReqContact,
+  readMoreContacts: readMoreContacts,
+  readMoreContactSent: readMoreContactSent,
+  readMoreContactRecevied: readMoreContactRecevied
 };
 
