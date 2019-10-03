@@ -76,11 +76,13 @@ ContactSchema.statics = {
   getContactBook(userId, limit) {
     return this.find({
       $and: [
-        {$or: [
-          {"userId": userId},
-          {"contactId": userId},
-          { "status": true }
-        ]},
+        {
+          $or: [
+            { "userId": userId },
+            { "contactId": userId },
+            { "status": true }
+          ]
+        },
       ]
     }).sort({ "createdAt": -1 }).limit(limit).exec();
   },
@@ -118,11 +120,13 @@ ContactSchema.statics = {
   countAllContactBook(userId) {
     return this.count({
       $and: [
-        {$or: [
-          {"userId": userId},
-          {"contactId": userId},
-          { "status": true }
-        ]},
+        {
+          $or: [
+            { "userId": userId },
+            { "contactId": userId },
+            { "status": true }
+          ]
+        },
       ]
     }).exec();
   },
@@ -149,10 +153,47 @@ ContactSchema.statics = {
         { "status": false }
       ]
     }).exec();
-  }
-  
+  },
+  /**
+   * 
+   * @param {*} userId 
+   * @param {*} skip 
+   * @param {*} limit 
+   */
+  getReadMoreContactBook(userId, skip, limit) {
+    return this.find({
+      $and: [
+        {
+          $or: [
+            { "userId": userId },
+            { "contactId": userId },
+            { "status": true }
+          ]
+        },
+      ]
+    }).sort({ "createdAt": -1 }).skip(skip).limit(limit).exec();
+  },
 
-  
+  getReadMoreContactSent(userId, skip, limit) {
+    return this.find({
+      $and: [
+        { "userId": userId },
+        { "status": false }
+      ]
+    }).sort({ "createdAt": -1 }).skip(skip).limit(limit).exec();
+  },
+
+  getReadMoreContactReceived(userId, skip, limit) {
+    return this.find({
+      $and: [
+        { "contactId": userId }, // người khác gửi kết bạn cho mình 
+        { "status": false }
+      ]
+    }).sort({ "createdAt": -1 }).skip(skip).limit(limit).exec();
+  }
+
+
+
 };
 
 //export + tạo model

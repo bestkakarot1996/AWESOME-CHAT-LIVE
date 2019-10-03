@@ -96,7 +96,11 @@ UserSchema.statics = {
         }
       ]
     }, { _id: 1, username: 1, address: 1, avatar: 1 }).exec(); // key: 1 => chỉ lấy những element này
-  }
+  },
+
+  getNormalFindUserDataById(id) {
+    return this.findById(id, { _id: 1, username: 1, address: 1, avatar: 1 }).exec(); // chỉ lấy những dữ liệu này ra bên ngoài 
+  },
 };
 
 // method : check password true or false

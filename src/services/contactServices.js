@@ -3,7 +3,7 @@ import UserModel from "./../model/userModel";
 import NotificationModel from "./../model/notificationModel";
 import _ from "lodash";
 
-const LIMIT_NUMBER_TAKEN = 10;
+const LIMIT_NUMBER_TAKEN = 1;
 
 let findUserContactServices = (currentUserId, keyword) => {
   return new Promise(async (resolve, reject) => {
@@ -71,9 +71,9 @@ let getContactsBook = (currentUserId) => {
       // sử dụng map để lấy được tất cả các thông báo trong bảng ghi 
       let users = contacts.map(async (contact) => {
         if (contact.contactId == currentUserId) {
-          return await UserModel.findUserById(contact.userId); // handel logic code
+          return await UserModel.getNormalFindUserDataById(contact.userId); // handel logic code
         } else {
-          return await UserModel.findUserById(contact.contactId);
+          return await UserModel.getNormalFindUserDataById(contact.contactId);
         }
 
       });
@@ -90,7 +90,7 @@ let getContactSent = (currentUserId) => {
       let contacts = await ContactModel.getContactSent(currentUserId, LIMIT_NUMBER_TAKEN);
       // sử dụng map để lấy được tất cả các thông báo trong bảng ghi 
       let users = contacts.map(async (contact) => {
-        return await UserModel.findUserById(contact.contactId);
+        return await UserModel.getNormalFindUserDataById(contact.contactId);
       });
       resolve(await Promise.all(users));
     } catch (error) {
@@ -108,7 +108,7 @@ let getContactReceived = (currentUserId) => {
       console.log(contacts, "contacts received");
 
       let users = contacts.map(async (contact) => {
-        return await UserModel.findUserById(contact.userId);
+        return await UserModel.getNormalFindUserDataById(contact.userId);
       });
       resolve(await Promise.all(users));
     } catch (error) {
@@ -152,6 +152,59 @@ let countAllContactReceived = (currentUserId) => {
   });
 };
 
+let readMoreContacts = (currentUserId, skipNumberContact) => {
+  return new Promise(async (resolve, reject) => {
+    try {
+      let newContactUsers = await ContactModel.getReadMoreContactBook(currentUserId, skipNumberContact, LIMIT_NUMBER_TAKEN);
+      // sử dụng map để lấy được tất cả các thông báo trong bảng ghi 
+      let getUsersContact = newContactUsers.map(async (contact) => {
+        if (contact.contactId == currentUserId) {
+          return await UserModel.getNormalFindUserDataById(contact.userId); // handel logic code
+        } else {
+          return await UserModel.getNormalFindUserDataById(contact.contactId);
+        }
+      });
+      resolve(await Promise.all(getUsersContact))
+      
+    } catch (error) {
+      reject(error);
+    }
+  });
+};
+
+
+let readMoreContactSent = (currentUserId, skipNumberContactSent) => {
+  return new Promise(async (resolve, reject) => {
+    try {
+      let newContactSent = await ContactModel.getReadMoreContactSent(currentUserId, skipNumberContactSent, LIMIT_NUMBER_TAKEN);
+      // sử dụng map để lấy được tất cả các thông báo trong bảng ghi 
+      let getUsersContact = newContactSent.map(async (contact) => {
+        return await UserModel.getNormalFindUserDataById(contact.contactId);
+      });
+      resolve(await Promise.all(getUsersContact))
+    } catch (error) {
+      reject(error);
+    }
+  });
+};
+
+let readMoreContactReceived = (currentUserId, skipNumberContactReceived) => {
+  return new Promise(async (resolve, reject) => {
+    try {
+      let newContactReceived = await ContactModel.getReadMoreContactReceived(currentUserId, skipNumberContactReceived, LIMIT_NUMBER_TAKEN);
+      // sử dụng map để lấy được tất cả các thông báo trong bảng ghi 
+      let getUsersContact = newContactReceived.map(async (contact) => {
+        return await UserModel.getNormalFindUserDataById(contact.userId);
+      });
+      resolve(await Promise.all(getUsersContact))
+    } catch (error) {
+      reject(error);
+    }
+  });
+};
+
+
+
 module.exports = {
   findUserContactServices: findUserContactServices,
   addNewContactServices: addNewContactServices,
@@ -161,6 +214,9 @@ module.exports = {
   getContactReceived: getContactReceived,
   countAllContactBook: countAllContactBook,
   countAllContactSent: countAllContactSent,
-  countAllContactReceived: countAllContactReceived
+  countAllContactReceived: countAllContactReceived,
+  readMoreContacts: readMoreContacts,
+  readMoreContactSent: readMoreContactSent,
+  readMoreContactReceived: readMoreContactReceived
 };
 

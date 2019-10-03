@@ -16,7 +16,7 @@ let getNotifications = (currentUserId) => {
       // sử dụng map để lấy được tất cả các thông báo trong bảng ghi 
       let getNotifiContents = notifications.map(async (notification) => {
         // query vào dữ liệu và lấy senderId ra
-        let sender = await UserModel.findUserById(notification.senderId);
+        let sender = await UserModel.getNormalFindUserDataById(notification.senderId);
         return NotificationModel.contents.getContent(notification.type, notification.isRead, sender._id ,sender.username, sender.avatar);
       });
       resolve(await Promise.all(getNotifiContents));
@@ -35,7 +35,7 @@ let readMore = (currentUserId, skipNumberNotification) => {
       // sử dụng map để lấy được tất cả các thông báo trong bảng ghi 
       let getNotifiContents = newNotifications.map(async (notification) => {
         // query vào dữ liệu và lấy senderId ra
-        let sender = await UserModel.findUserById(notification.senderId);
+        let sender = await UserModel.getNormalFindUserDataById(notification.senderId);
 
         return NotificationModel.contents.getContent(notification.type, notification.isRead, sender._id, sender.username, sender.avatar);
       });
