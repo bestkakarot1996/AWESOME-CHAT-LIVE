@@ -48,15 +48,14 @@ let addNewContactServices = (currentUserId, contactId) => {
   });
 };
 
-let removeReqContactServices = (currentUserId, contactId) => {
+let removeRequestContactSent = (currentUserId, contactId) => {
   return new Promise(async (resolve, reject) => {
     let removeReq = await ContactModel.removeContact(currentUserId, contactId);
     if (removeReq.result.n === 0) {
       return reject(false);
     }
     // remove notification
-    await NotificationModel.model.removeRequestContactNotification(currentUserId, contactId, NotificationModel.types.ADD_CONTACT);
-
+    await NotificationModel.model.removeRequestContactSentNotification(currentUserId, contactId, NotificationModel.types.ADD_CONTACT);
     resolve(true);
 
   });
@@ -68,7 +67,7 @@ let getContactsBook = (currentUserId) => {
     try {
       let contacts = await ContactModel.getContactBook(currentUserId, LIMIT_NUMBER_TAKEN);
 
-      // sử dụng map để lấy được tất cả các thông báo trong bảng ghi 
+      // sử dụng map để lấy được tất cả cáck thông báo trong bảng ghi 
       let users = contacts.map(async (contact) => {
         if (contact.contactId == currentUserId) {
           return await UserModel.getNormalFindUserDataById(contact.userId); // handel logic code
@@ -208,7 +207,7 @@ let readMoreContactReceived = (currentUserId, skipNumberContactReceived) => {
 module.exports = {
   findUserContactServices: findUserContactServices,
   addNewContactServices: addNewContactServices,
-  removeReqContactServices: removeReqContactServices,
+  removeRequestContactSent: removeRequestContactSent,
   getContactsBook: getContactsBook,
   getContactSent: getContactSent,
   getContactReceived: getContactReceived,

@@ -28,7 +28,6 @@ let postRegister = async (req, res) => { // post emailUser to the database befor
     successArray.push(createUserSuccsess);
     req.flash("success", successArray);
     return res.redirect("/login-register");
-    // console.log(req.body);
   } catch (error) {
     errorArray.push(error);
     req.flash("errors", errorArray);

@@ -16,7 +16,7 @@ NotificationSchema.statics = {
   createNew(item) {
     return this.create(item); // Tạo 1 bản ghi từ let ContactSchema = new Schema và this.create = ContactSchema = new Schema là một thuộc tính trong mongoose
   },
-  removeRequestContactNotification(senderId, receiverId, type) {
+  removeRequestContactSentNotification(senderId, receiverId, type) {
     return this.remove({
       $and: [
         { "senderId": senderId },
