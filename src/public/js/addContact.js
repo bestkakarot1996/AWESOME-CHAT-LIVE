@@ -7,12 +7,13 @@ function addContact() {
     $.post("/contact/add-new", { uid: targetId }, function (data) {
       if (data.success) {
         $("#find-user").find(`div.user-add-new-contact[data-uid=${targetId}]`).hide();
-        $("#find-user").find(`div.user-remove-request-contact[data-uid=${targetId}]`).css("display", "inline-block");
+        $("#find-user").find(`div.user-remove-request-contact-sent[data-uid=${targetId}]`).css("display", "inline-block");
         quantityAddContactNotify("count-request-contact-sent");
         // Thêm ở model tab yêu cầu xác nhận
         let userInfoHtml = $("#find-user").find(`ul li[data-uid=${targetId}]`).get(0).outerHTML; // lấy và in ra html
         console.log(userInfoHtml);
         $("#request-contact-sent").find("ul").prepend(userInfoHtml);
+        removeRequestContactSent();
         // init socket io
         socket.emit("add-new-contact", { contactId: targetId });
       }
@@ -35,7 +36,7 @@ socket.on("response-add-new-contact", function (user) {
   quantityAddContactNotify("count-request-contact-received");
   quantityAddNotifycation("noti_contact_counter", 1);
   quantityAddNotifycation("noti_counter", 1);
-  
+
   // Thêm ở model tab đang chờ xác nhận
   let userInfoHtml = `           
   <li class="_contactList" data-uid="${user.id}">

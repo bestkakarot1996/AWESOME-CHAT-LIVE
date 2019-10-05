@@ -53,7 +53,7 @@ let initRoutes = (app) => {
 
   router.get("/contact/find-users/:keyword", auth.checkLoginUser, contactValid.findUserContactValidate, contact.findUserContact);
   router.post("/contact/add-new", auth.checkLoginUser, contact.addNewContact );
-  router.delete("/contact/remove-request-contact", auth.checkLoginUser, contact.removeReqContact);
+  router.delete("/contact/remove-request-contact-sent", auth.checkLoginUser, contact.removeRequestContactSent);
 
   router.get("/notification/read-more", auth.checkLoginUser, notification.readMore);
   router.get("/contact/read-more-contacts", auth.checkLoginUser, contact.readMoreContacts);

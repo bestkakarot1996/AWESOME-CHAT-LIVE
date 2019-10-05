@@ -28,13 +28,14 @@ $(document).ready(function () {
                                         <div class="user-address">
                                             <span>&nbsp ${user.address !== null ? user.address : ""}</span>
                                         </div>
-                                        <div class="user-remove-request-sent action-danger" data-uid="${user.avatar}">
+                                        <div class="user-remove-request-contact-sent action-danger" data-uid="${user.avatar}">
                                             Hủy yêu cầu
                                         </div>
                                     </div>
                                 </li>
           `) 
         });
+        removeRequestContactSent();
         $("#link-read-more-contact-sent").css("display", "inline-block");
         $(".read-more-contact-sent-loading").css("display", "none");
       })

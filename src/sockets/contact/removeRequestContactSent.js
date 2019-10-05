@@ -3,12 +3,12 @@ import { pushSocketIdToArray, emitNotifiToArray, removeSocketIdToArray } from ".
  * from socket.io init 
  * @param {*} io  // Có sẵn trong thư viện socket
  */
-let removeRequestContact = (io) => {
+let removeRequestContactSent = (io) => {
   let clients = {};
   io.on("connection", (socket) => {
     pushSocketIdToArray(clients, socket.request.user._id, socket.id);
 
-    socket.on("remove-request-contact", function (data) {
+    socket.on("remove-request-contact-sent", function (data) {
       console.log(data);
       console.log(socket.request.user);
 
@@ -17,7 +17,7 @@ let removeRequestContact = (io) => {
       };
       // gửi thông báo (khi user đang online )
       if (clients[data.contactId]) {
-        emitNotifiToArray(clients, data.contactId, io, "response-remove-request-contact", currentUser);
+        emitNotifiToArray(clients, data.contactId, io, "response-remove-request-contact-sent", currentUser);
       }
     });
     // xóa socketId dư thừa
@@ -28,4 +28,4 @@ let removeRequestContact = (io) => {
   });
 };
 
-module.exports = removeRequestContact;
+module.exports = removeRequestContactSent;
