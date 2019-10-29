@@ -5,7 +5,8 @@
   "main": "server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "babel-node src/server.js"
+    "start": "babel-node src/server.js",
+    "debug:log": "DEBUG=* & nodemon src/server.js"
   },
   "repository": {
     "type": "git",
@@ -36,6 +37,7 @@
     "mongoose": "^4.13.9",
     "multer": "^1.4.1",
     "nodemailer": "^4.4.2",
+    "nodemon": "^1.19.4",
     "passport": "^0.4.0",
     "passport-facebook": "^2.1.1",
     "passport-google-oauth": "^1.0.0",
@@ -43,7 +45,7 @@
     "passport.socketio": "^3.7.0",
     "socket.io": "^2.2.0",
     "uuid": "^3.3.2",
-    "yarn": "^1.17.3"
+    "yarn": "^1.19.1"
   },
   "devDependencies": {
     "@babel/preset-env": "^7.5.5",

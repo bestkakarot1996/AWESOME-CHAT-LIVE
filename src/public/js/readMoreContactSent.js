@@ -28,7 +28,7 @@ $(document).ready(function () {
                                         <div class="user-address">
                                             <span>&nbsp ${user.address !== null ? user.address : ""}</span>
                                         </div>
-                                        <div class="user-remove-request-contact-sent action-danger" data-uid="${user.avatar}">
+                                        <div class="user-remove-request-contact-sent display-important action-danger " data-uid="${user.avatar}">
                                             Hủy yêu cầu
                                         </div>
                                     </div>

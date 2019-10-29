@@ -29,10 +29,10 @@ $(document).ready(function () {
                                           <div class="user-address">
                                               <span>&nbsp ${user.address !== null ? user.address : ""}</span>
                                           </div>
-                                          <div class="user-acccept-contact-received" data-uid="user._id">
+                                          <div class="user-acccept-contact-received" data-uid="${user._id}">
                                               Chấp nhận
                                           </div>
-                                          <div class="user-reject-request-contact-received action-danger"
+                                          <div class="user-remove-request-contact-received action-danger"
                                               data-uid="${user._id}">
                                               Xóa yêu cầu
                                           </div>
@@ -40,6 +40,7 @@ $(document).ready(function () {
                                   </li>
             `)
         });
+        removeRequestContactReceived();
         $("#link-read-more-contact-recevied").css("display", "inline-block");
         $(".read-more-contact-received-loading").css("display", "none");
       })

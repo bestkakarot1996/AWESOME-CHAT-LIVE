@@ -1,5 +1,5 @@
 
-function quantityAddNotifycation(className, number) {
+function increaseNumberNotification(className, number) {
   let currentValue = +$(`.${className}`).text();
   currentValue += number;
   if (currentValue === 0) {
@@ -11,7 +11,7 @@ function quantityAddNotifycation(className, number) {
 };
 
 
-function quantityRemoveReqNotifycation(className, number) {
+function decreaseNumberNotification(className, number) {
   let currentValue = +$(`.${className}`).text();
   currentValue -= number;
   if (currentValue === 0) {

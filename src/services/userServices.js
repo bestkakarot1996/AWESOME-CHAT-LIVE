@@ -26,9 +26,7 @@ let updatePasswords = (id, dataUpdate) => {
     if (!currentUser) { // if no user 
       return reject(transErrors.trans_user_underfine);
     }
-    // check current password 
     let checkCurrentPassword = await currentUser.comparePassword(dataUpdate.currentPassword);
-    // check if password user enter != current password for database 
     if (!checkCurrentPassword) {
       return reject(transErrors.user_current_password_flased);
     }

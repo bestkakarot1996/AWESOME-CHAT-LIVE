@@ -19,7 +19,7 @@ ContactSchema.statics = {
     return this.create(item); // Tạo 1 bản ghi từ let ContactSchema = new Schema và this.create = ContactSchema = new Schema là một thuộc tính trong mongoose
   },
   /**
-   * @param {string} userID tìm tất cả các userID có trong bản ghi
+   * @param {string} userID 
    */
   findAllByUser(userID) {
     return this.find({
@@ -60,7 +60,7 @@ ContactSchema.statics = {
    * @param {string} userId 
    * @param {string} contactId 
    */
-  removeContact(userId, contactId) {
+  removeRequestContactSent(userId, contactId) {
     return this.remove({
       $and: [
         { "userId": userId },
@@ -68,6 +68,19 @@ ContactSchema.statics = {
       ]
     }).exec();
   },
+  /**
+   * 
+   * @param {string} userId 
+   * @param {string} contactId 
+   */
+  removeRequestContactReceived(userId, contactId) {
+    return this.remove({
+      $and: [
+        {"contactId": userId},
+        {"userId": contactId}
+      ]
+    }).exec();
+  }, 
   /**
    * 
    * @param {string} contactId 
