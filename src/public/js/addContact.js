@@ -8,7 +8,9 @@ function addContact() {
       if (data.success) {
         $("#find-user").find(`div.user-add-new-contact[data-uid=${targetId}]`).hide();
         $("#find-user").find(`div.user-remove-request-contact-sent[data-uid=${targetId}]`).css("display", "inline-block");
-        quantityAddContactNotify("count-request-contact-sent");
+       
+        increaseNumberNotification("noti_contact_counter", 1);
+        increaseNumberNotiContact("count-request-contact-sent");
         // Thêm ở model tab yêu cầu xác nhận
         let userInfoHtml = $("#find-user").find(`ul li[data-uid=${targetId}]`).get(0).outerHTML; // lấy và in ra html
         console.log(userInfoHtml);
@@ -33,9 +35,10 @@ socket.on("response-add-new-contact", function (user) {
   $(".noti_content").prepend(notify); //popup notif
   $("ul.list-notifications").prepend(`<li>${notify}</li>`) //modal notif
 
-  quantityAddContactNotify("count-request-contact-received");
-  quantityAddNotifycation("noti_contact_counter", 1);
-  quantityAddNotifycation("noti_counter", 1);
+  increaseNumberNotiContact("count-request-contact-received"); 
+
+  increaseNumberNotification("noti_contact_counter", 1);
+  increaseNumberNotification("noti_counter", 1);
 
   // Thêm ở model tab đang chờ xác nhận
   let userInfoHtml = `           
@@ -56,7 +59,7 @@ socket.on("response-add-new-contact", function (user) {
                                       <div class="user-acccept-contact-received" data-uid="${user.id}">
                                           Chấp nhận
                                       </div>
-                                      <div class="user-reject-request-contact-received action-danger"
+                                      <div class="user-remove-request-contact-received action-danger"
                                           data-uid="${user.id}">
                                           Xóa yêu cầu
                                       </div>
@@ -64,4 +67,5 @@ socket.on("response-add-new-contact", function (user) {
                                 </li>
   `
   $("#request-contact-received").find("ul").prepend(userInfoHtml);
+  removeRequestContactReceived();
 });

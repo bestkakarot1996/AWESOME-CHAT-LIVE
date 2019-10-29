@@ -1,5 +1,5 @@
 
-function quantityAddContactNotify(className) {
+function increaseNumberNotiContact(className) {
   let currentValue = +$(`.${className}`).find("em").text();
   currentValue += 1;
   if (currentValue === 0) {
@@ -11,7 +11,7 @@ function quantityAddContactNotify(className) {
 };
 
 
-function quantityRemoveReqContactNotify(className) {
+function decreaseNumberNotiContact(className) {
   let currentValue = +$(`.${className}`).find("em").text();
   currentValue -= 1;
   if (currentValue === 0) {

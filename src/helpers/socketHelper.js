@@ -1,4 +1,4 @@
-export let pushSocketIdToArray = (clients, userId, socketId) => {
+export let pushSocketFromArray = (clients, userId, socketId) => {
   if (clients[userId]) { // đang tồn tại currentUserId, nghĩa là đang đăng nhập, thì push vào mảng
     clients[userId].push(socketId);
   }
@@ -15,7 +15,7 @@ export let emitNotifiToArray = (clients, userId, io, eventName, data) => {
   });
 };
 
-export let removeSocketIdToArray = (clients, userId, socket) => {
+export let removeSocketFromArray = (clients, userId, socket) => {
   clients[userId] = clients[userId].filter((socketId) => {
     // socketId phải khác với socket.id (id hiện tại)
     return socketId !== socket.id;

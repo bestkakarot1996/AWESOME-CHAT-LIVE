@@ -11,7 +11,7 @@ function markNotificationsAsRead(targetUsers) {
           $(".noti_content").find(`div[data-uid=${uid}]`).removeClass("noti-readed-false");
           $("ul.list-notifications").find(`div[data-uid=${uid}]`).removeClass("noti-readed-false");
         });
-        quantityRemoveReqNotifycation("noti_counter", targetUsers.length);
+        decreaseNumberNotification("noti_counter", targetUsers.length);
       }
     }
   });

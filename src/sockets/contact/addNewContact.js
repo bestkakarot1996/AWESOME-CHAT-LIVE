@@ -1,4 +1,4 @@
-import { pushSocketIdToArray, emitNotifiToArray, removeSocketIdToArray } from "./../../helpers/socketHelper";
+import { pushSocketFromArray, emitNotifiToArray, removeSocketFromArray } from "./../../helpers/socketHelper";
 /**
 /**
  * from socket.io init 
@@ -7,11 +7,9 @@ import { pushSocketIdToArray, emitNotifiToArray, removeSocketIdToArray } from ".
 let addNewContact = (io) => {
   let clients = {};
   io.on("connection", (socket) => {
-    pushSocketIdToArray(clients, socket.request.user._id, socket.id);
+    pushSocketFromArray(clients, socket.request.user._id, socket.id);
 
     socket.on("add-new-contact", function (data) {
-      // console.log(data);
-      // console.log(socket.request.user);
       let currentUser = {
         id: socket.request.user._id,
         username: socket.request.user.username,
@@ -24,10 +22,8 @@ let addNewContact = (io) => {
     });
     // xóa socketId dư thừa
     socket.on("disconnect", () => {
-      clients = removeSocketIdToArray(clients, socket.request.user._id, socket);
+      clients = removeSocketFromArray(clients, socket.request.user._id, socket);
     });
-    console.log(clients);
-
   });
 };
 

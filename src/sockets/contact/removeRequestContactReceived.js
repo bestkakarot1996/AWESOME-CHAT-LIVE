@@ -3,18 +3,18 @@ import { pushSocketFromArray, emitNotifiToArray, removeSocketFromArray } from ".
  * from socket.io init 
  * @param {*} io  // Có sẵn trong thư viện socket
  */
-let removeRequestContactSent = (io) => {
+let removeRequestContactReceived = (io) => {
   let clients = {};
   io.on("connection", (socket) => {
     pushSocketFromArray(clients, socket.request.user._id, socket.id);
 
-    socket.on("remove-request-contact-sent", function (data) {
+    socket.on("remove-request-contact-received", function (data) {
       let currentUser = {
         id: socket.request.user._id
       };
       // gửi thông báo (khi user đang online )
       if (clients[data.contactId]) {
-        emitNotifiToArray(clients, data.contactId, io, "response-remove-request-contact-sent", currentUser);
+        emitNotifiToArray(clients, data.contactId, io, "response-remove-request-contact-received", currentUser);
       }
     });
     // xóa socketId dư thừa
@@ -25,4 +25,4 @@ let removeRequestContactSent = (io) => {
   });
 };
 
-module.exports = removeRequestContactSent;
+module.exports = removeRequestContactReceived;

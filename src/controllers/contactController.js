@@ -51,16 +51,33 @@ let removeRequestContactSent = async (req, res) => {
     // lấy id người dùng hiện tại trong session
     let currentUserId = req.user._id;
     let contactId = req.body.uid;
-
     // viet service
-    let removeContact = await contact.removeRequestContactSent(currentUserId, contactId);
-    return res.status(200).send({ success: !!removeContact });
+    let removeRequest = await contact.removeRequestContactSent(currentUserId, contactId);
+    
+    return res.status(200).send({ success: !!removeRequest });
   } catch (error) {
-    console.log(error);
+    console.log("error:", error);
     return res.status(500).send(error);
     
   }
-}
+};
+
+let removeRequestContactReceived = async (req, res) => {
+  try {
+    // lấy id người dùng hiện tại trong session
+    let currentUserId = req.user._id;
+    let contactId = req.body.uid;
+    // viet service
+    let removeRequest = await contact.removeRequestContactReceived(currentUserId, contactId);
+    
+    return res.status(200).send({ success: !!removeRequest });
+  } catch (error) {
+    console.log("error:", error);
+    return res.status(500).send(error);
+    
+  }
+};
+
 
 let readMoreContacts = async (req, res) => {
   try {
@@ -72,7 +89,7 @@ let readMoreContacts = async (req, res) => {
   } catch (error) {
     return res.status(500).send(error);
   }
-}
+};
 
 
 let readMoreContactSent = async (req, res) => {
@@ -104,6 +121,7 @@ module.exports = {
   removeRequestContactSent: removeRequestContactSent,
   readMoreContacts: readMoreContacts,
   readMoreContactSent: readMoreContactSent,
-  readMoreContactRecevied: readMoreContactRecevied
+  readMoreContactRecevied: readMoreContactRecevied,
+  removeRequestContactReceived: removeRequestContactReceived
 };
 

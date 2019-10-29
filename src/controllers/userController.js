@@ -73,7 +73,7 @@ let updateInfo = async (req, res) => {
   }
 
   try {
-    let updateUserItem = req.body; // req.body lúc này chính là cái userInfo mà người dùng đã sửa 
+    let updateUserItem = req.body; 
     await user.updateUser(req.user._id, updateUserItem);
     // trả kết quả về 
     let result = {

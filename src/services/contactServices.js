@@ -50,16 +50,32 @@ let addNewContactServices = (currentUserId, contactId) => {
 
 let removeRequestContactSent = (currentUserId, contactId) => {
   return new Promise(async (resolve, reject) => {
-    let removeReq = await ContactModel.removeContact(currentUserId, contactId);
-    if (removeReq.result.n === 0) {
+    let removeRequest = await ContactModel.removeRequestContactSent(currentUserId, contactId);
+    if (removeRequest.result.n === 0) {
       return reject(false);
     }
     // remove notification
-    await NotificationModel.model.removeRequestContactSentNotification(currentUserId, contactId, NotificationModel.types.ADD_CONTACT);
+    let notiTypeAddContact = NotificationModel.types.ADD_CONTACT; 
+    await NotificationModel.model.removeRequestContactSentNotification(currentUserId, contactId, notiTypeAddContact);
     resolve(true);
 
   });
 };
+
+let removeRequestContactReceived = (currentUserId, contactId) => {
+  return new Promise(async (resolve, reject) => {
+    let removeRequest = await ContactModel.removeRequestContactReceived(currentUserId, contactId);
+    if (removeRequest.result.n === 0) {
+      return reject(false);
+    }
+    // remove notification
+   //  await NotificationModel.model.removeRequestContactReceivedNotification(currentUserId, contactId, NotificationModel.types.ADD_CONTACT);
+    resolve(true);
+
+  });
+};
+
+
 
 
 let getContactsBook = (currentUserId) => {
@@ -104,7 +120,6 @@ let getContactReceived = (currentUserId) => {
     try {
       let contacts = await ContactModel.contactReceived(currentUserId, LIMIT_NUMBER_TAKEN);
       // sử dụng map để lấy được tất cả các thông báo trong bảng ghi 
-      console.log(contacts, "contacts received");
 
       let users = contacts.map(async (contact) => {
         return await UserModel.getNormalFindUserDataById(contact.userId);
@@ -175,8 +190,8 @@ let readMoreContacts = (currentUserId, skipNumberContact) => {
 let readMoreContactSent = (currentUserId, skipNumberContactSent) => {
   return new Promise(async (resolve, reject) => {
     try {
+      
       let newContactSent = await ContactModel.getReadMoreContactSent(currentUserId, skipNumberContactSent, LIMIT_NUMBER_TAKEN);
-      // sử dụng map để lấy được tất cả các thông báo trong bảng ghi 
       let getUsersContact = newContactSent.map(async (contact) => {
         return await UserModel.getNormalFindUserDataById(contact.contactId);
       });
@@ -216,6 +231,7 @@ module.exports = {
   countAllContactReceived: countAllContactReceived,
   readMoreContacts: readMoreContacts,
   readMoreContactSent: readMoreContactSent,
-  readMoreContactReceived: readMoreContactReceived
+  readMoreContactReceived: readMoreContactReceived,
+  removeRequestContactReceived: removeRequestContactReceived
 };
 
